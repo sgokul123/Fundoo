@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_date_reason"
+        android:layout_centerHorizontal="true"
+        android:text="22 November 2016"/>
+
+    <View android:id="@+id/titleDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@id/txt_date_reason"
+        android:layout_marginTop="10dp"
+        android:background="#878686" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reason"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txt_reason"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/titleDivider"/>
+
+    <EditText
+        android:id="@+id/edit_reason"
+        android:layout_marginRight="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingLeft="20dp"
+        android:background="@drawable/rectangle"
+        android:layout_below="@+id/txt_reason"
+        android:layout_alignStart="@+id/txt_reason" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_reason"
+        android:text="OK"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+</RelativeLayout>

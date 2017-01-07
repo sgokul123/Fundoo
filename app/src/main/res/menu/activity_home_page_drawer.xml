@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+
+            android:title="DashBoard" />
+        <item
+            android:id="@+id/nav_engineer"
+
+            android:title="Engineers" />
+        <item
+            android:id="@+id/nav_attend"
+
+            android:title="Attendence Summary" />
+        <item
+            android:id="@+id/nav_report"
+
+            android:title="Reports" />
+        <item
+            android:id="@+id/nav_clients"
+
+            android:title="Clients" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"/>
+    </group>
+
+  </menu>

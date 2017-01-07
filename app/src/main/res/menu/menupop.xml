@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Attendence Details"
+        android:id="@+id/attendence"
+        android:icon="@mipmap/ic_launcher"/>
+    <item android:title="Personal Details"
+        android:id="@+id/personal"/>
+    <item android:title="Profile Details"
+        android:id="@+id/profile"/>
+    <item android:title="HR Details"
+        android:id="@+id/hr_details"/>
+    <item android:title="Bank Details"
+        android:id="@+id/bank"/>
+    <item android:title="Tracking Details"
+        android:id="@+id/tracking"/>
+</menu>

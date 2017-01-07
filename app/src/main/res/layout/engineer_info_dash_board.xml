@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#D8D1C7"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="75dp"
+            android:src="@drawable/logo"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="22dp"
+            android:textSize="25dp"
+            android:textColor="#3B5378"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FundooHR"/>
+    </RelativeLayout>
+
+  <include layout="@layout/engineer_collapse"/>
+</android.support.design.widget.AppBarLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="65dp"
+    android:background="@drawable/rect">
+
+    <TextView
+        android:id="@+id/calendar_day_gridcell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:textColor="#6FB8D9" />
+    <ImageView
+        android:id="@+id/text_mark"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/calendar_day_gridcell"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:layout_centerInParent="true"
+        android:textColor="#5669e3" />
+
+</RelativeLayout>

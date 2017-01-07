@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ffffff"
+    tools:context="com.example.bridgeit.fundoo.view.BankingDetails">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="21dp"
+            android:textSize="30dp"
+            android:text="Banking Details"
+            android:textStyle="bold"
+            android:textColor="#6FB8D9"/>
+        <ImageButton
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="280dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_edit"
+            android:clickable="true"
+            android:src="@drawable/edit"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="12dp"
+            android:text="Account Number"
+            android:layout_marginTop="70dp"
+            android:textColor="#3B5372"/>
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:id="@+id/bank_AccNo"
+            android:ems="10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="15dp"
+            android:text="Bank Name"
+            android:layout_marginTop="110dp"
+            android:textColor="#3B5372"/>
+
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="90dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_bankname"
+            android:ems="10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="15dp"
+            android:text="IFSC Code"
+            android:layout_marginTop="140dp"
+            android:textColor="#3B5372"/>
+
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_ifsc"
+            android:ems="10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="15dp"
+            android:text="PAN"
+            android:layout_marginTop="170dp"
+            android:textColor="#3B5372"/>
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_pan"
+            android:ems="10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="15dp"
+            android:text="Pay Salary"
+            android:layout_marginTop="200dp"
+            android:textColor="#3B5372"/>
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_pay_salary"
+            android:ems="10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="15dp"
+            android:text="Reason"
+            android:layout_marginTop="230dp"
+            android:textColor="#3B5372"/>
+        <EditText
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="210dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:id="@+id/bank_reason"
+            android:ems="10"/>
+        
+    </RelativeLayout>

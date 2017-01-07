@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/custom_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22 November 2016"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"/>
+
+    <View android:id="@+id/titleDivider_timer"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@id/custom_time"
+        android:layout_marginTop="10dp"
+        android:background="#878686" />
+
+
+    <TextView
+        android:id="@+id/intime"
+        android:layout_below="@id/titleDivider_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="In Time:"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:id="@+id/time_in"
+        android:layout_below="@id/titleDivider_timer"
+        android:paddingTop="5dp"
+        android:paddingLeft="25dp"
+        android:text="00.00AM"
+        android:textSize="18dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/intime"
+        android:maxLines="1"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/rectangle">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/outtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/intime"
+        android:layout_marginTop="40dp"
+        android:text="Out Time:"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:id="@+id/time_out"
+        android:text="00.00PM"
+        android:textSize="18dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="25dp"
+        android:layout_below="@id/intime"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:maxLines="1"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@id/outtime"
+        android:background="@drawable/rectangle"/>
+
+
+
+    <TextView
+        android:id="@+id/txt_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/outtime"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:text="OK"
+        android:textSize="18dp"
+        android:layout_marginBottom="20dp"/>
+
+
+</RelativeLayout>

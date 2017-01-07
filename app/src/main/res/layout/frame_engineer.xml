@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:background="#ffffff"
+    android:paddingTop="140dp">
+
+    <EditText
+        android:id="@+id/searchBox"
+        android:layout_width="300dp"
+        android:layout_marginLeft="36dp"
+        android:layout_height="35dp"
+        android:background="@drawable/input"
+        android:hint="Search"
+        android:layout_marginBottom="0dp"
+        android:paddingLeft="10dp"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:inputType="textVisiblePassword"/>
+
+    <LinearLayout
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:layout_marginTop="49dp">
+    <ListView
+        android:id="@+id/listView_engineer"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="320dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="22dp"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:orientation="horizontal">
+    </ListView>
+</LinearLayout>
+    <com.example.bridgeit.fundoo.view.SideBar_engineer
+            android:id = "@+id/sideBar"
+        android:layout_marginTop="50dp"
+            android:layout_height="match_parent"
+            android:layout_width="44px"
+            android:layout_alignParentRight="true"
+            />
+
+</RelativeLayout>
