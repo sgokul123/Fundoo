@@ -1,6 +1,7 @@
 package com.example.bridgeit.fundoo.view;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +17,21 @@ import com.example.bridgeit.fundoo.R;
 
 import com.example.bridgeit.fundoo.callback.Tokenable;
 import com.example.bridgeit.fundoo.model.LoginModel;
+import com.example.bridgeit.fundoo.viewmodel.EnggFragViewModel;
 import com.example.bridgeit.fundoo.viewmodel.LoginViewModel;
 
 
 import java.util.ArrayList;
 
 
-
+//LoginActivity that extends AppCompatActivity and implements the Tokenable Interface
 public class LoginActivity extends AppCompatActivity implements Tokenable {
     EditText mUsername, mPassword;
     Button mClick;
     String name;
     String pswrd;
+    ProgressDialog mProgressDialog;
+    SharedPreferences mSharedPreferences;
 
 
     @Override
@@ -42,42 +46,59 @@ public class LoginActivity extends AppCompatActivity implements Tokenable {
         mClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //progress dailog box
+                mProgressDialog = new ProgressDialog(LoginActivity.this);
+                mProgressDialog.setMessage("Wait..Login....is in Process");
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
                 name = mUsername.getText().toString();
                 pswrd = mPassword.getText().toString();
-                /*RequestParams params = new RequestParams();
-                params.put("emailId", name);
-                params.put("password", pswrd);*/
-               /* invokesWS(params);*/
                 passingData(name, pswrd);
 
-
-                String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBicmlkZ2VsYWJ6LmNvbSIsImlhdCI6MTQ4Mzc5MDg0OCwiZXhwIjoxNDg1MDAwNDQ4fQ.rp7wszUwIUbliFJKd2J945Xbj7n0GkrlF1w7Cy1XHE0";
             }
-
-
         });
     }
 
+    //Passing the data to viewModel to the method CheckData
     private void passingData(String name, String pswrd) {
         LoginViewModel viewModel = new LoginViewModel();
         viewModel.checkData(name, pswrd, this);
     }
 
-
+    //Getting the dat back from View model through getLoginDat method from Tokenable  interface
     @Override
     public void getLoginData(LoginModel loginData) {
+        mProgressDialog.dismiss();
+
+
         String message = loginData.getMessage();
-        loginData.getToken();
+        String token = loginData.getToken();
         int status = loginData.getStatus();
+
         if (status == 200) {
             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+            //Sending the data to next class through sharedprefernces
+            mSharedPreferences = getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor= mSharedPreferences.edit();
+            SharedPreferences.Editor editor1=mSharedPreferences.edit();
+            editor.putString("token", token);
+            editor.commit();
             Intent intent = new Intent(LoginActivity.this, DashBoard.class);
             startActivity(intent);
+
+           // mSharedPreferences.getString(token,null);*/
+
+
         } else {
             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 
         }
+        //After geeting the token Value ,the token is sent to the next ViewModel "EnggFragViewModel" to its method employeeList
+
+       /* EnggFragViewModel enggFragViewModel = new EnggFragViewModel(LoginActivity.this);
+        enggFragViewModel.employeeList();*/
     }
+
 }
 
 

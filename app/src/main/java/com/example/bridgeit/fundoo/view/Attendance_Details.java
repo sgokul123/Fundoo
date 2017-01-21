@@ -92,9 +92,6 @@ public class Attendance_Details extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.attendence:
                 Toast.makeText(getApplicationContext(), "1st selected", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Attendance_Details.this, Attendance_Details.class);
-                startActivity(intent);
-              /* getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame,new Attendance_Details()).commit();*/
                 return true;
             case R.id.personal:
                 Toast.makeText(getApplicationContext(), "2nd selected", Toast.LENGTH_SHORT).show();

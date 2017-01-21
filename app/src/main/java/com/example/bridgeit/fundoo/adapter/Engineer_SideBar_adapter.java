@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bridgeit.fundoo.R;
+import com.example.bridgeit.fundoo.model.EnggFragModel;
 import com.example.bridgeit.fundoo.view.Engineer_Collapse;
 import com.example.bridgeit.fundoo.view.Engineer_Fragment;
+import com.example.bridgeit.fundoo.view.Personal_details;
 
 import java.util.ArrayList;
 
@@ -28,63 +31,107 @@ import java.util.ArrayList;
  * Created by bridgeit on 10/12/16.
  */
 public class Engineer_SideBar_adapter extends BaseAdapter implements SectionIndexer {
-    private ArrayList<String> mStringArray;
+    private ArrayList<EnggFragModel> mStringArray1;
+    ArrayList<String> mStringArray;
     private Context mContext;
 
-    public Engineer_SideBar_adapter(ArrayList mData) {
-    }
+    public Engineer_SideBar_adapter(ArrayList<EnggFragModel> mData , Context context) {
+         this.mStringArray1 = mData;
+         this.mContext = context;
+         Log.i("EnggSideBar", "Engineer_SideBar_adapter: ghnjnj   "+mStringArray1.get(0).getEmployeeName());
 
-    public Engineer_SideBar_adapter(Context context, ArrayList data) {
-        this.mStringArray = data;
-        this.mContext = context;
-    }
+     }
 
     @Override
     public int getCount() {
-        return mStringArray.size();
+        return mStringArray1.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return mStringArray.get(i);
+        return mStringArray1.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
-    public View getView(int position, View v, ViewGroup viewGroup) {
+    public View getView(final int position, View v, ViewGroup viewGroup) {
 
         LayoutInflater inflate = ((Activity) mContext).getLayoutInflater();
         View view1 = (View) inflate.inflate(R.layout.card_engineer, null);
 
         LinearLayout header = (LinearLayout) view1.findViewById(R.id.section);
         CardView cardview = (CardView) header.findViewById(R.id.engineer_card_data);
+        //On Click of Cardview the data is displayed on Collasping Layout
+        //Which Contains The Engineers Info,Hence to Send the data to that layout
+        //Bundle is used and data is passed through bundle using intent
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,Engineer_Collapse.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name",mStringArray1.get(position).getEmployeeName());
+                bundle.putString("id",mStringArray1.get(position).getEngineerID());
+                bundle.putString("status",mStringArray1.get(position).getEmployeeStatus());
+                bundle.putString("company",mStringArray1.get(position).getCompany());
+                bundle.putString("mobile",mStringArray1.get(position).getEmployeeMobile());
+                bundle.putString("emailid",mStringArray1.get(position).getEmployeeEmail());
+                bundle.putString("blStart",mStringArray1.get(position).getBlStartDate());
+                bundle.putString("companyStart",mStringArray1.get(position).getCompanyStartDate());
+                bundle.putString("CompanyLeave",mStringArray1.get(position).getCompanyLeaveDate());
+                bundle.putString("leave",mStringArray1.get(position).getLeaveTaken());
+                intent.putExtra("data",bundle);
+
+
+
+                Personal_details personal_details = new Personal_details();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("Id", mStringArray1.get(position).getEngineerID());
+                // getFragmentManager().beginTransaction().replace(R.id.attendance_frame,personal_details).commit();
+                personal_details.setArguments(bundle1);
+                Log.i("enggid", "enggViewMInterface: "+bundle);
+
+
+
+
                 mContext.startActivity(intent);
+
+
             }
         });
-        String label = mStringArray.get(position);
-        char firstChar = label.toUpperCase().charAt(0);
+        //Searching Code..........-------
+        EnggFragModel label = mStringArray1.get(position);
+        String name = label.getEmployeeName();
+        char firstChar = name.toUpperCase().charAt(0);
         if (position == 0) {
-            setSection(header, label);
+            setSection(header, name);
         } else {
-            String preLabel = mStringArray.get(position - 1);
-            char preFirstChar = preLabel.toUpperCase().charAt(0);
+            EnggFragModel preLabel = mStringArray1.get(position - 1);
+            String empname = preLabel.getEmployeeName();
+            char preFirstChar = empname.toUpperCase().charAt(0);
             if (firstChar != preFirstChar) {
-                setSection(header, label);
+                setSection(header, empname);
             } else {
                 header.setVisibility(View.GONE);
             }
         }
         TextView textView = (TextView) view1.findViewById(R.id.name_engineer);
-        textView.setText(label);
+        textView.setText(name);
 
+        TextView textViewn = (TextView) view1.findViewById(R.id.name_engineer);
+        TextView textView1 = (TextView) view1.findViewById(R.id.fellow_engineer);
+        TextView textView2 = (TextView) view1.findViewById(R.id.company_engineer);
+        TextView textView3 = (TextView) view1.findViewById(R.id.mob_engineer);
+        TextView textView4 = (TextView) view1.findViewById(R.id.email_engineer);
+
+        textViewn.setText(mStringArray1.get(position).getEmployeeName());
+        textView1.setText(mStringArray1.get(position).getEmployeeStatus());
+        textView2.setText(mStringArray1.get(position).getCompany());
+        textView3.setText(mStringArray1.get(position).getEmployeeMobile());
+        textView4.setText(mStringArray1.get(position).getEmployeeEmail());
         return view1;
     }
 
@@ -105,6 +152,18 @@ public class Engineer_SideBar_adapter extends BaseAdapter implements SectionInde
         if (section == 35) {
             return 0;
         }
+        for (int i = 0; i < mStringArray1.size(); i++) {
+           EnggFragModel l = mStringArray1.get(i);
+
+            String employee = l.getEmployeeName();
+            char firstChar = employee.toUpperCase().charAt(0);
+            if (firstChar == section) {
+                return i;
+            }
+        }
+        if (section == 35) {
+            return 0;
+        }
         for (int i = 0; i < mStringArray.size(); i++) {
             String l = mStringArray.get(i);
             char firstChar = l.toUpperCase().charAt(0);
@@ -114,7 +173,6 @@ public class Engineer_SideBar_adapter extends BaseAdapter implements SectionInde
         }
         return -1;
     }
-
 
     @Override
     public int getSectionForPosition(int i) {

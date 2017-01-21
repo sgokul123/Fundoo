@@ -98,11 +98,14 @@ public class DashBoard extends AppCompatActivity
 
         if (id == R.id.nav_dashboard) {
             mtoolbar.setTitle(item.getTitle().toString());
+            Intent intent = new Intent(DashBoard.this,DashBoard.class);
+            startActivity(intent);
         } else if (id == R.id.nav_engineer) {
             mtoolbar.setTitle(item.getTitle().toString());
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,new Engineer_Fragment()).commit();
         } else if (id == R.id.nav_attend) {
             mtoolbar.setTitle(item.getTitle().toString());
+
         } else if (id == R.id.nav_report) {
             mtoolbar.setTitle(item.getTitle().toString());
         } else if (id == R.id.nav_logout) {
@@ -116,4 +119,5 @@ public class DashBoard extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

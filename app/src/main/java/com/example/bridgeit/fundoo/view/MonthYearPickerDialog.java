@@ -69,11 +69,11 @@ public class MonthYearPickerDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(mContext, Attendance_Details.class);
-                            intent.putExtra("month", monthPicker.getValue());
-                            intent.putExtra("year", yearPicker.getValue());
-                            startActivity(intent);
+                        intent.putExtra("month", monthPicker.getValue());
+                        intent.putExtra("year", yearPicker.getValue());
+                        startActivity(intent);
 
-/*
+                        /*
                         CalendarFragment p = new CalendarFragment();
                         Fragment fragment = p.newInstance(obj);
                         FragmentManager fragmngr = getActivity().getSupportFragmentManager();

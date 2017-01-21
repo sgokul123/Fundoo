@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="120dp"
-    android:layout_height="25dp"
-    android:layout_marginTop="10dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+  >
 
     <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/checkmark"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/checkmark"/>
 
     <ImageView
-        android:layout_width="5dp"
-        android:layout_height="15dp"
+        android:layout_width="15dp"
+        android:layout_height="25dp"
         android:layout_toEndOf="@id/checkmark"
         android:id="@+id/alert"
-        android:layout_marginTop="10dp"
         android:background="@drawable/notattend"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"/>
     <ImageView
-        android:layout_width="10dp"
-        android:layout_height="15dp"
+        android:layout_width="15dp"
+        android:layout_height="25dp"
         android:layout_toEndOf="@id/alert"
         android:id="@+id/leave"
-        android:layout_marginTop="10dp"
         android:background="@drawable/leave"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"/>
     <ImageView
-        android:layout_width="10dp"
-        android:layout_height="15dp"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
         android:layout_toEndOf="@id/leave"
         android:id="@+id/co_leave"
-        android:layout_marginTop="10dp"
         android:background="@drawable/coleave"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"/>
 </RelativeLayout>

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class LoginViewModel {
 
-    ArrayList<LoginModel> list;
     RequestParams params= new RequestParams();
 
     public  void checkData(String email, String password, final Tokenable tokenable){
@@ -27,7 +26,7 @@ public class LoginViewModel {
         params.put("password",password);
         Log.i("LogiViewModel", "checkData: "+params);
 
-
+        //Creating the controller Class object to get data through interface
         LoginController controller =new LoginController();
         controller.getLoginController(params , new LoginInterface() {
             @Override

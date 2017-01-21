@@ -25,7 +25,7 @@ import cz.msebera.android.httpclient.Header;
 public class LoginController {
     public void getLoginController(RequestParams params,final LoginInterface loginInterface) {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://192.168.0.171:3000/login", params, new AsyncHttpResponseHandler() {
+        client.post("http://192.168.0.9:3000/login", params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

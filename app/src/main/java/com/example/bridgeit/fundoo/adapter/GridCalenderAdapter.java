@@ -152,17 +152,17 @@ public class GridCalenderAdapter extends BaseAdapter {
         textMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(_context);
+               /* final Dialog dialog = new Dialog(_context);
                 // dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 // dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.string.app_name );
-                LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(350, 120);
+                LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(150,120);
                 final LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View dislogView = inflater.inflate(R.layout.custom_dailog_icon, null);
 
-                dialog.setContentView(dislogView, dialogParams);
+                dialog.setContentView(dislogView, dialogParams);*/
                 //popup symbols
-                /*final Dialog dialog = new Dialog(_context);
-                dialog.setContentView(R.layout.custom_dialog_icon);*/
+                final Dialog dialog = new Dialog(_context);
+                dialog.setContentView(R.layout.custom_dailog_icon);
                 dialog.show();
 
                 ImageView leave = (ImageView) dialog.findViewById(R.id.leave);

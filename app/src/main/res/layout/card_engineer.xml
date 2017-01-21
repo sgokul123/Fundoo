@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bridgelabz"
-                android:id="@+id/bridge_engineer"
+                android:id="@+id/company_engineer"
                 android:maxLines="1"
                 android:layout_marginLeft="150dp"
                 android:layout_marginTop="4dp"/>
