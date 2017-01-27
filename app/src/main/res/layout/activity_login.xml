@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#D8D1C7"
-    tools:context=".view.LoginActivity"
+    tools:context=".view.activity.LoginActivity"
     >
     <RelativeLayout
         android:layout_width="match_parent"

@@ -9,4 +9,29 @@
     <string name="title_activity_dash_board">DashBoard</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+
+    <!--URL-->
+    <string name="login_url">http://192.168.0.18:3000/login</string>
+    <string name="attendence_url">http://192.168.0.18:3000/readEmployeeMonthlyAttendance</string>
+    <string name="searchEmployeeByName_url">http://192.168.0.18:3000/searchEmployeeByName</string>
+    <string name="Personal_url">http://192.168.0.18:3000/readEmployeePersonalData</string>
+    <string name="Profile_url">http://192.168.0.18:3000/readEmployeeProfileData</string>
+    <string name="HR_url">http://192.168.0.18:3000/readEmployeeHRData</string>
+    <string name="Bank_url">http://192.168.0.18:3000/readEmployeeBankData</string>
+    <string name="Tracking_url">http://192.168.0.18:3000/readEmployeeTrackingData</string>
+
+    <string-array name="Month">
+        <item> January</item>
+        <item>February</item>
+        <item> March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

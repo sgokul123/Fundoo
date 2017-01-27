@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bridgeit.fundoo">
+    package="com.fundoohr.bridgeit.fundoohr">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.LoginActivity"
+            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.LoginActivity"
             android:theme="@style/your_own_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,17 +21,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.DashBoard"
+            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.DashBoard"
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.Engineer_Collapse"
+            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.EngineerCollapse"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <action android:name="android.intent.action.SEARCH" />
 
         <activity
-            android:name=".view.Attendance_Details"
+            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetails"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.SearchEngineer"></activity>
     </application>
