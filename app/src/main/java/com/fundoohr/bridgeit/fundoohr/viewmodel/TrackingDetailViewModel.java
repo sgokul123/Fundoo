@@ -27,10 +27,10 @@ public class TrackingDetailViewModel {
 
     }
 
-    public  void trackingData(String mTrack_url, RequestParams params, final TrackingDetailArrayInterface trackingDetailArrayInterface){
+    public  void trackingData(String token, String mTrack_url, RequestParams params, final TrackingDetailArrayInterface trackingDetailArrayInterface){
           final ArrayList<TrackingDetailsModel> trackDM = new ArrayList<>();
         TrackinController trackinController = new TrackinController();
-        trackinController.trackDataController(mTrack_url,params, new TrackingDetailBInterface() {
+        trackinController.trackDataController(token,mTrack_url,params, new TrackingDetailBInterface() {
             @Override
             public void trackData(byte[] bytes) {
                 try {

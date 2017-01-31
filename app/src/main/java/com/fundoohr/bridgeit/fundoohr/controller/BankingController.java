@@ -13,9 +13,10 @@ import cz.msebera.android.httpclient.Header;
  * Created by bridgeit on 24/1/17.
  */
 public class BankingController {
-    public void getBankControllerData(String mBank_url, RequestParams params, final BankingDetailBInterface bankingDetailBInterface){
+    public void getBankControllerData(String token, String mBank_url, RequestParams params, final BankingDetailBInterface bankingDetailBInterface){
 
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        asyncHttpClient.addHeader("x-token",token);
         asyncHttpClient.get(mBank_url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

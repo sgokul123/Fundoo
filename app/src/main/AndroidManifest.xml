@@ -25,13 +25,13 @@
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.EngineerCollapse"
+            android:name=".view.activity.EngineerProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <action android:name="android.intent.action.SEARCH" />
 
         <activity
-            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetails"
+            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.SearchEngineer"></activity>
     </application>

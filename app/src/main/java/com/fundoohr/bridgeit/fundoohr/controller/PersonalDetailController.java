@@ -13,8 +13,9 @@ import cz.msebera.android.httpclient.Header;
  * Created by bridgeit on 16/1/17.
  */
 public class PersonalDetailController {
-    public void getPersonDetailController(String mPersonal_url, RequestParams params, final PersonalDetailBInterface personalDetailInterface){
+    public void getPersonDetailController(String token, String mPersonal_url, RequestParams params, final PersonalDetailBInterface personalDetailInterface){
         AsyncHttpClient asyncHttpClient=new AsyncHttpClient();
+        asyncHttpClient.addHeader("x-token",token);
         asyncHttpClient.get(mPersonal_url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

@@ -110,13 +110,12 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
         String token = mSharedPreferences.getString("token", null);
         String engineerId = getArguments().getString("id");
         RequestParams requestParams = new RequestParams();
-        requestParams.put("token", token);
         requestParams.put("engineerId", engineerId);
         Log.i("HR", "onCreateView: token" + token);
         Log.i("HR", "onCreateView: token" + token);
         mHR_url= getResources().getString(R.string.HR_url);
         HRDetailViewModel hrViewModel = new HRDetailViewModel();
-        hrViewModel.hrDataList(mHR_url,requestParams, this);
+        hrViewModel.hrDataList(token,mHR_url,requestParams, this);
         return view;
 
     }

@@ -15,12 +15,12 @@ import java.util.ArrayList;
  * Created by bridgeit on 23/1/17.
  */
 public class HRDetailViewModel {
-    public void hrDataList(String mHR_url, RequestParams requestParams, final HRDetailArrayInterface hrDetailArrayInterface){
+    public void hrDataList(String token, String mHR_url, RequestParams requestParams, final HRDetailArrayInterface hrDetailArrayInterface){
         final ArrayList<HRDetailsModel> hrDetails = new ArrayList<>();
 
         //Making a Call to the Controller..
         final HRController hrController = new HRController();
-        hrController.getHRControllerData(mHR_url,requestParams,new HRDetailBInterface(){
+        hrController.getHRControllerData(token,mHR_url,requestParams,new HRDetailBInterface(){
 
 
             @Override

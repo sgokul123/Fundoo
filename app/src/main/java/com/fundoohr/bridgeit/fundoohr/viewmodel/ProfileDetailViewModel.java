@@ -24,10 +24,10 @@ public class ProfileDetailViewModel {
     }
 
     public ProfileDetailViewModel(Context mContext) { this.mContext = mContext;}
-    public void profileData(String mProfile_url, RequestParams requestParams, final ProfileDetailArrayInterface profileDetailArrayInterface){
+    public void profileData(String token, String mProfile_url, RequestParams requestParams, final ProfileDetailArrayInterface profileDetailArrayInterface){
         final ArrayList<ProfileDetailsModel> profileDetailsModel=new ArrayList<>();
         ProfileDetailController profileDetailController = new ProfileDetailController();
-        profileDetailController.getProfileDetailController(mProfile_url,requestParams, new ProfileDetailBInterface() {
+        profileDetailController.getProfileDetailController(token,mProfile_url,requestParams, new ProfileDetailBInterface() {
             @Override
             public void profileDataInterface(byte[] bytes) {
                 try{

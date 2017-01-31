@@ -25,10 +25,10 @@ public class BankingViewModel {
 
     public BankingViewModel(Context mContext) {this.mContext = mContext;}
 
-    public void bankDataList(String mBank_url, RequestParams requestParams, final BankingDetailArrayInterface bankingDetails){
+    public void bankDataList(String token, String mBank_url, RequestParams requestParams, final BankingDetailArrayInterface bankingDetails){
         final ArrayList<BankingDetailsModel> bankDetail = new ArrayList<>();
         BankingController bankController = new BankingController();
-        bankController.getBankControllerData(mBank_url,requestParams, new BankingDetailBInterface() {
+        bankController.getBankControllerData(token,mBank_url,requestParams, new BankingDetailBInterface() {
             @Override
             public void bankByteData(byte[] bytes) {
                 try {

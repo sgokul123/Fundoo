@@ -10,18 +10,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fundoohr.bridgeit.fundoohr.R;
+import com.fundoohr.bridgeit.fundoohr.adapter.GridCalenderAdapter;
 import com.fundoohr.bridgeit.fundoohr.callback.AttendenceArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.AttendenceModel;
-import com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetails;
+import com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetailsActivity;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.AttendenceViewModel;
 import com.loopj.android.http.RequestParams;
 
@@ -33,20 +32,22 @@ import java.util.GregorianCalendar;
 /**
  * Created by bridgeit on 30/12/16.
  */
-public class MonthYearPickerDialog extends DialogFragment {
+public class MonthYearPickerDialog extends DialogFragment implements AttendenceArrayInterface{
     SharedPreferences mSharedPreferences;
     String ValueId;
-   // private static final int MAX_YEAR = 2099;
+    // private static final int MAX_YEAR = 2099;
     private static final int MIN_YEAR = 2016;
     private DatePickerDialog.OnDateSetListener listener;
     private Context mContext;
+    private GridView gridView;
 
     public MonthYearPickerDialog(){
     }
 
-    public void setListener(Context context,DatePickerDialog.OnDateSetListener listener) {
+    public void setListener(Context context, DatePickerDialog.OnDateSetListener listener, GridView calendarView) {
         this.listener = listener;
         mContext = context;
+        this.gridView = calendarView;
     }
 
 
@@ -69,8 +70,8 @@ public class MonthYearPickerDialog extends DialogFragment {
         monthPicker.setDisplayedValues(monthNames);
         monthPicker.setMaxValue(monthNames.length-1);
         monthPicker.setValue(cal.get(Calendar.MONTH) + 1);
-        ValueId = getArguments().getString("ID");
-        Log.i("ValueId", "onCreateDialog: " +ValueId);
+        // String value =getArguments().getString("ID");
+        //Log.i("ValueId", "onCreateDialog: " +value);
         int year = cal.get(Calendar.YEAR);
         yearPicker.setMinValue(MIN_YEAR);
         yearPicker.setMaxValue(year);
@@ -83,7 +84,7 @@ public class MonthYearPickerDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
 
 
-                    //Creating the TimeStamp by converting the day picked on the MonthPicker
+                        //Creating the TimeStamp by converting the day picked on the MonthPicker
                         int day, second, minute, hour;
                         long epoch=0;
                         GregorianCalendar calendar = new GregorianCalendar();
@@ -93,10 +94,14 @@ public class MonthYearPickerDialog extends DialogFragment {
                         minute = calendar.get(Calendar.MINUTE);
                         hour = calendar.get(Calendar.HOUR);
 
+                        //String ValueId="40001EI";
+
                         try {
                             epoch = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
-                                    .parse(monthPicker.getValue()+"/"+day+"/"+yearPicker.getValue()+" "+hour+":"+minute+":"+second)
+                                    .parse(monthPicker.getValue()+"/"+day+"/"+yearPicker.getValue()+" " +
+                                            ""+hour+":"+minute+":"+second)
                                     .getTime();
+                            Log.i("ghgj", "onClick: "+ValueId);
                             Log.i("Atten..", "onClick: ..epochfgfhbgnjhnvbn....."+epoch);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -114,7 +119,8 @@ public class MonthYearPickerDialog extends DialogFragment {
                         param.put("",token);
                         // Getting the viewmodel class obeject
                         AttendenceViewModel attendenceViewModel = new AttendenceViewModel();
-                        attendenceViewModel.attendViewModelData(epoch,ValueId,token,new AttendanceDetails()); /*{
+                        attendenceViewModel.attendViewModelData(attendence_url,epoch,ValueId,token,
+                                new AttendanceDetailsActivity()); /*{
                             @Override
                             public void getAttendArrayData(ArrayList<AttendenceModel> attendenceModels) {
 
@@ -122,11 +128,12 @@ public class MonthYearPickerDialog extends DialogFragment {
                         });*/
 
 
-                        Intent intent = new Intent(mContext, AttendanceDetails.class);
+                        Intent intent = new Intent(mContext, AttendanceDetailsActivity.class);
                         intent.putExtra("timeStamp", epoch);
-                            intent.putExtra("month", monthPicker.getValue());
+                        intent.putExtra("month", monthPicker.getValue());
                         intent.putExtra("year", yearPicker.getValue());
                         startActivity(intent);
+
 
 
                     }
@@ -149,4 +156,11 @@ public class MonthYearPickerDialog extends DialogFragment {
     }
 
 
+    @Override
+    public void getAttendArrayData(ArrayList<AttendenceModel> attendenceModels) {
+        ArrayList<AttendenceModel> modelArrayList = attendenceModels;
+        /*GridCalenderAdapter adapter = new GridCalenderAdapter(getActivity(),modelArrayList, getmonth + 1, getyear);
+        adapter.notifyDataSetChanged();
+        gridView.setAdapter(adapter);*/
+    }
 }

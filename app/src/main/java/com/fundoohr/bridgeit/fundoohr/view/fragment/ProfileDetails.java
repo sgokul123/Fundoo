@@ -75,13 +75,13 @@ public class ProfileDetails extends Fragment implements ProfileDetailArrayInterf
         String token=mSharedPreferences.getString("token",null);
         String engineerId=getArguments().getString("id");
         RequestParams requestParams = new RequestParams();
-        requestParams.put("token",token);
         Log.i("profile", "onCreateView: token"+token);
         requestParams.put("engineerId",engineerId);
         Log.i("profile", "onCreateView: token"+engineerId);
         Toast.makeText(getActivity(), "engineerId"+engineerId, Toast.LENGTH_SHORT).show();
+
         ProfileDetailViewModel profileDetailViewModel = new ProfileDetailViewModel();
-        profileDetailViewModel.profileData(mProfile_url,requestParams,this);
+        profileDetailViewModel.profileData(token,mProfile_url,requestParams,this);
         return view;
     }
 

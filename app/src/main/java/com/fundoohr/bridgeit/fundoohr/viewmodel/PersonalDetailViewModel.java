@@ -27,12 +27,12 @@ public class PersonalDetailViewModel {
         this.mContext = mContext;
     }
 
-    public void personalData(String mPersonal_url, RequestParams requestParams, final PersonalDetailArrayInterface personalDetailInterface){
+    public void personalData(String token, String mPersonal_url, RequestParams requestParams, final PersonalDetailArrayInterface personalDetailInterface){
         final ArrayList<PersonalDetailsModel>  personalDetailsModels = new ArrayList<>();
 
          PersonalDetailController personalController=new PersonalDetailController();
         //Calling the interface through interface
-        personalController.getPersonDetailController(mPersonal_url,requestParams, new PersonalDetailBInterface() {
+        personalController.getPersonDetailController(token,mPersonal_url,requestParams, new PersonalDetailBInterface() {
             @Override
             public void personalViewModelData(byte[] bytes) {
                 try {

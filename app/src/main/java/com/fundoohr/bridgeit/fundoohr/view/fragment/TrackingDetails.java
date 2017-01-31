@@ -61,13 +61,12 @@ public class TrackingDetails extends Fragment implements TrackingDetailArrayInte
         String token = mSharedPreferences.getString("token", null);
         String engineerId = getArguments().getString("id");
         RequestParams requestParams = new RequestParams();
-        requestParams.put("token", token);
         requestParams.put("engineerId", engineerId);
         Log.i("HR", "onCreateView: token" + token);
         Log.i("HR", "onCreateView: token" + engineerId);
         mTrack_url=getResources().getString(R.string.Tracking_url);
         TrackingDetailViewModel trackViewModel = new TrackingDetailViewModel();
-        trackViewModel.trackingData(mTrack_url,requestParams, this);
+        trackViewModel.trackingData(token,mTrack_url,requestParams, this);
 
         return view;
     }

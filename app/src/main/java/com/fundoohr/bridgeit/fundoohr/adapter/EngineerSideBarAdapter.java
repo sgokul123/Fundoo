@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
-import com.fundoohr.bridgeit.fundoohr.view.activity.EngineerCollapse;
+import com.fundoohr.bridgeit.fundoohr.view.activity.EngineerProfileActivity;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.Personaldetails;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexe
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,EngineerCollapse.class);
+                Intent intent = new Intent(mContext,EngineerProfileActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("name",mStringArray1.get(position).getEmployeeName());
                 bundle.putString("id",mStringArray1.get(position).getEngineerID());

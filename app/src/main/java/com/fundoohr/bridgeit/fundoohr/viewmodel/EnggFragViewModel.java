@@ -1,12 +1,14 @@
 package com.fundoohr.bridgeit.fundoohr.viewmodel;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fundoohr.bridgeit.fundoohr.callback.EnggFragInterface;
 import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
 import com.fundoohr.bridgeit.fundoohr.controller.EngineerFragController;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,13 +17,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class EnggFragViewModel {
-    public  void employeeList(String mEngineer_data, RequestParams params, final EnggViewModelInterface enggViewModelInterface){
+    Context mContext;
+    ProgressDialog mDailog;
+
+    public EnggFragViewModel(Context mContext, ProgressDialog mDailog) {
+        this.mContext = mContext;
+        this.mDailog = mDailog;
+    }
+
+    public void employeeList(String mEngineer_data, String tokenHeader, final EnggViewModelInterface enggViewModelInterface) {
         final ArrayList<EnggFragModel> viewModelData = new ArrayList<>();
         Log.i("EnggViewModel", "employeeList:Data is Available here ");
 
+
         //Creating controller class to pass the data
-        final EngineerFragController enggController = new EngineerFragController();
-        enggController.getEnggFragController(mEngineer_data,params, new EnggFragInterface() {
+        final EngineerFragController enggController = new EngineerFragController(mContext, mDailog);
+
+        enggController.getEnggFragController(mEngineer_data, tokenHeader, new EnggFragInterface() {
             @Override
             public void employeeData(byte[] bytes) {
                 try {
@@ -31,7 +43,7 @@ public class EnggFragViewModel {
 
 
                     JSONObject jsonObject = new JSONObject(new String(bytes));
-                    Log.i("json object", "employeeList: " );
+                    Log.i("json object", "employeeList: ");
                     if (jsonObject != null) {
                         JSONArray jsonArray = jsonObject.getJSONArray("employeeList");
                         Log.i("json Array", "employeeList: " + jsonArray.length());
@@ -49,7 +61,7 @@ public class EnggFragViewModel {
                                 enggFragModel.setEmployeeMobile(childObject.getString("mobile"));
                                 enggFragModel.setEmployeeEmail(childObject.getString("emailId"));
                                 enggFragModel.setEngineerID(childObject.getString("engineerId"));
-                                Log.i("EngineerId", "employeeData: " +childObject.getString("engineerId"));
+                                Log.i("EngineerId", "employeeData: " + childObject.getString("engineerId"));
                                 viewModelData.add(enggFragModel);
 
 
@@ -58,16 +70,20 @@ public class EnggFragViewModel {
                             Log.i("Employee", "employeeList: " + viewModelData);
 
                         }
+
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                Log.i("Employee", "employeeList: " );
+                Log.i("Employee", "employeeList: ");
 
             }
         });
     }
+
+
 }
 

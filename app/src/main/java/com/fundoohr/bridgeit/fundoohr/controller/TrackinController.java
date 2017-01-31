@@ -13,10 +13,11 @@ import cz.msebera.android.httpclient.Header;
  * Created by bridgeit on 24/1/17.
  */
 public class TrackinController {
-    public void trackDataController(String mTrack_url, RequestParams requestParams, final TrackingDetailBInterface trackingDetailBInterface){
+    public void trackDataController(String token, String mTrack_url, RequestParams requestParams, final TrackingDetailBInterface trackingDetailBInterface){
         Log.i("Track ", "trackDataController: "+requestParams);
 
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        asyncHttpClient.addHeader("x-token",token);
         asyncHttpClient.get(mTrack_url, requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

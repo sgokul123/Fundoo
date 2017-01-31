@@ -28,17 +28,17 @@ import java.util.ArrayList;
 /**
  * Created by bridgeit on 17/12/16.
  */
-public class EngineerCollapse extends AppCompatActivity implements EnggViewModelInterface {
+public class EngineerProfileActivity extends AppCompatActivity implements EnggViewModelInterface {
     TextView mId, mStatus, mCompany, mMobile, mEmail, mBLStart, mCompanyStart, mCompanyLeave, mLeave;
     Context context;
     CollapsingToolbarLayout mCollapsingToolbar;
     String mEnggId;
     Bundle bundle;
 
-    public EngineerCollapse() {
+    public EngineerProfileActivity() {
     }
 
-    public EngineerCollapse(Context context) {
+    public EngineerProfileActivity(Context context) {
         this.context = context;
     }
 
@@ -92,7 +92,7 @@ public class EngineerCollapse extends AppCompatActivity implements EnggViewModel
         switch (item.getItemId()) {
             case R.id.attendence:
                 Toast.makeText(getApplicationContext(), "1st selected", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EngineerCollapse.this, AttendanceDetails.class);
+                Intent intent = new Intent(EngineerProfileActivity.this, AttendanceDetailsActivity.class);
                 intent.putExtra("engineerId",mEnggId);
                 startActivity(intent);
                 return true;
@@ -168,14 +168,14 @@ public class EngineerCollapse extends AppCompatActivity implements EnggViewModel
         if (mEnggId != null) {
             SharedPreferences preferences = this.getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
             String tokenValue = preferences.getString("token", null);
-            Toast.makeText(EngineerCollapse.this, "" + mEnggId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EngineerProfileActivity.this, "" + mEnggId, Toast.LENGTH_SHORT).show();
             Log.i("engg collap", "callPersonal: " + tokenValue);
              bundle = new Bundle();
             bundle.putString("id", mEnggId);
             bundle.putString("token", tokenValue);
             return bundle;
         }else {
-            Toast.makeText(EngineerCollapse.this, "Wait a While", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EngineerProfileActivity.this, "Wait a While", Toast.LENGTH_SHORT).show();
         }return bundle;
 
     }

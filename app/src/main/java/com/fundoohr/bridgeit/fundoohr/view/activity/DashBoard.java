@@ -22,11 +22,13 @@ public class DashBoard extends AppCompatActivity
     Toolbar mtoolbar;
     ProgressDialog mDailog;
     CardView cardView;
+    EngineerFragment enggFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
+        enggFrag = new EngineerFragment(this, mDailog);
         mtoolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.toolcolor));
         setSupportActionBar(mtoolbar);
 
@@ -34,7 +36,7 @@ public class DashBoard extends AppCompatActivity
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,new EngineerFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,enggFrag).commit();
             }
         });
 
@@ -74,7 +76,7 @@ public class DashBoard extends AppCompatActivity
             mDailog= new ProgressDialog(DashBoard.this);
             mDailog.setMessage("Loading....");
             mDailog.show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,new EngineerFragment(this,mDailog)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,enggFrag).commit();
         } else if (id == R.id.nav_attend) {
             mtoolbar.setTitle(item.getTitle().toString());
 

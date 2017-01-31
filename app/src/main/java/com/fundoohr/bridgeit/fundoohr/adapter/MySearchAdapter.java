@@ -1,5 +1,4 @@
-/*
-package com.example.bridgeit.fundoo.adapter;
+package com.fundoohr.bridgeit.fundoohr.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,23 +11,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bridgeit.fundoo.R;
-import com.example.bridgeit.fundoo.model.SearchModel;
+import com.fundoohr.bridgeit.fundoohr.R;
+import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
 
 import java.util.ArrayList;
 
-*//*
 
- * /Created by bridgeit on 2/1/17.
+
 
 
 public class MySearchAdapter extends BaseAdapter implements Filterable {
     Context mContext;
-    private ArrayList<SearchModel> mOriginalValues; // Original Values
-    private ArrayList<SearchModel> mDisplayedValues;    // Values to be displayed
+    private ArrayList<EnggFragModel> mOriginalValues; // Original Values
+    private ArrayList<EnggFragModel> mDisplayedValues;    // Values to be displayed
     LayoutInflater inflater;
 
-    public MySearchAdapter(Context context, ArrayList<SearchModel> mProductArrayList) {
+    public MySearchAdapter(Context context, ArrayList<EnggFragModel> mProductArrayList) {
         this.mOriginalValues = mProductArrayList;
         this.mDisplayedValues = mProductArrayList;
         inflater = LayoutInflater.from(context);
@@ -66,19 +64,19 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
             holder.llContainer = (LinearLayout)convertView.findViewById(R.id.section);
             holder.name = (TextView) convertView.findViewById(R.id.name_engineer);
             holder.status = (TextView) convertView.findViewById(R.id.fellow_engineer);
-            holder.company = (TextView) convertView.findViewById(R.id.bridge_engineer);
+            holder.company = (TextView) convertView.findViewById(R.id.company_engineer);
             holder.mobile = (TextView) convertView.findViewById(R.id.mob_engineer);
             holder.emailengg = (TextView) convertView.findViewById(R.id.email_engineer);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-       SearchModel searchModel=(SearchModel) getItem(position);
-       holder.name.setText(searchModel.getmName());
-        holder.status.setText(searchModel.getmName());
-        holder.company.setText(searchModel.getmName());
-        holder.mobile.setText(searchModel.getmName());
-        holder.emailengg.setText(searchModel.getmName());
+        EnggFragModel searchModel=(EnggFragModel) getItem(position);
+       holder.name.setText(searchModel.getEmployeeName());
+        holder.status.setText(searchModel.getEmployeeStatus());
+        holder.company.setText(searchModel.getCompany());
+        holder.mobile.setText(searchModel.getEmployeeMobile());
+        holder.emailengg.setText(searchModel.getEmployeeEmail());
 
 
 
@@ -94,25 +92,20 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint,FilterResults results) {
 
-                mDisplayedValues = (ArrayList<SearchModel>) results.values; // has the filtered values
+                mDisplayedValues = (ArrayList<EnggFragModel>) results.values; // has the filtered values
                 notifyDataSetChanged();  // notifies the data with new filtered values
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new Filter.FilterResults();        // Holds the results of a filtering operation in values
-                ArrayList<SearchModel> FilteredArrList = new ArrayList<SearchModel>();
+                ArrayList<EnggFragModel> FilteredArrList = new ArrayList<EnggFragModel>();
 
                 if (mOriginalValues == null) {
-                    mOriginalValues = new ArrayList<SearchModel>(mDisplayedValues); // saves the original data in mOriginalValues
+                    mOriginalValues = new ArrayList<EnggFragModel>(mDisplayedValues); // saves the original data in mOriginalValues
                 }
 
-*******
-                 *
-                 *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
-                 *  else does the Filtering and returns FilteredArrList(Filtered)
-                 *
-                 *******
+
 
                 if (constraint == null || constraint.length() == 0) {
 
@@ -122,9 +115,9 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
                 } else {
                     constraint = constraint.toString().toLowerCase();
                     for (int i = 0; i < mOriginalValues.size(); i++) {
-                        String data = mOriginalValues.get(i).mName;
+                        String data = mOriginalValues.get(i).getEmployeeName();
                         if (data.toLowerCase().startsWith(constraint.toString())) {
-                            FilteredArrList.add(new SearchModel(mOriginalValues.get(i).mName));
+                            FilteredArrList.add(new EnggFragModel());
                         }
                     }
                     // set the Filtered result to return
@@ -138,4 +131,3 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
     }
 }
 
-*/

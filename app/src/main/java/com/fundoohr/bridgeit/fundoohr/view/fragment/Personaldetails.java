@@ -89,14 +89,13 @@ public class Personaldetails extends Fragment implements PersonalDetailArrayInte
         mPersonal_url=getResources().getString(R.string.Personal_url);
        /* String tokenValue = getArguments().getString("token");*/
         RequestParams requestParams = new RequestParams();
-        requestParams.put("token",token);
         Log.i("Pd", "onCreateView: token"+token);
         requestParams.put("engineerId",strtext);
         Log.i("Pd", "onCreateView: engid"+strtext);
         Toast.makeText(getActivity(), "gettting id"+strtext, Toast.LENGTH_SHORT).show();
 
         PersonalDetailViewModel personalDetailVModel= new PersonalDetailViewModel();
-        personalDetailVModel.personalData(mPersonal_url,requestParams,this);
+        personalDetailVModel.personalData(token,mPersonal_url,requestParams,this);
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

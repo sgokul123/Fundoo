@@ -60,11 +60,10 @@ public class BankingDetails extends Fragment implements BankingDetailArrayInterf
         String engineerId = getArguments().getString("id");
         mBank_url=getResources().getString(R.string.Bank_url);
         RequestParams requestParams =new RequestParams();
-        requestParams.put("token",token);
         requestParams.put("engineerId",engineerId);
 
         BankingViewModel bankViewModel = new BankingViewModel();
-        bankViewModel.bankDataList(mBank_url,requestParams,this);
+        bankViewModel.bankDataList(token,mBank_url,requestParams,this);
         return view;
     }
 
