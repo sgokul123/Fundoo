@@ -4,6 +4,7 @@ package com.fundoohr.bridgeit.fundoohr.adapter;
  * Created by bridgeit on 26/12/16.
  */
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,8 +33,8 @@ import java.util.List;
  */
 
 public class GridCalenderAdapter extends BaseAdapter {
-    private final Context mContext;
-    private final List<String> list;
+    private Context mContext;
+    private List<String> list;
     private String[] months;
     private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29};
     private TextView inText, outText;
@@ -40,9 +42,12 @@ public class GridCalenderAdapter extends BaseAdapter {
     private int daysInMonth;
     private TextView gridcell;
     private ImageView textMark;
-    private int mYear;
+    private int mYear, mMonth;
     private int currentDayOfMonth;
     ArrayList<AttendenceModel> attendenceModels;
+
+    public GridCalenderAdapter(){
+    }
 
     public GridCalenderAdapter(Context context, ArrayList<AttendenceModel> attendenceModels, int month, int year, Button save, Button cancel) {
         super();
@@ -50,10 +55,11 @@ public class GridCalenderAdapter extends BaseAdapter {
         this.cancel = cancel;
         this.mContext = context;
         this.mYear = year;
+        this.mMonth = month;
         this.attendenceModels = attendenceModels;
         this.list = new ArrayList<String>();
         // Print Month
-        printMonth(month, year);
+        printMonth(mMonth, mYear);
     }
 
     private void printMonth(int mm, int yy) {
@@ -145,9 +151,18 @@ public class GridCalenderAdapter extends BaseAdapter {
 
         // Set the Day GridCell
         gridcell.setText(theday);
+
         /*if (!theday.equals(" ") && model.getAttendenceStatus().equalsIgnoreCase("Present")) {
             textMark.setImageResource(R.drawable.checkmark);
+        }
+        else if(!theday.equals(" ") && model.getAttendenceStatus().equalsIgnoreCase("Leave")) {
+            textMark.setImageResource(R.drawable.leave);
+        }
+        else {
+            textMark.setImageResource(R.drawable.coleave);
         }*/
+
+
         gridcell.setTag(theday + "-" + themonth + "-" + theyear);
 
         textMark.setOnClickListener(new View.OnClickListener() {

@@ -52,6 +52,7 @@ public class AttendenceViewModel {
                     //Getting
 
                     Iterator<String> keys = jsonChild.keys();
+                    Log.i("keys", "getAttendBData: "+keys);
                     while (keys.hasNext()){
                         String keyValue = (String)keys.next();
                         jsonChild1=jsonChild.getJSONObject(keyValue);
@@ -60,6 +61,7 @@ public class AttendenceViewModel {
 
                         AttendenceModel attendM = new AttendenceModel();
                         attendM.setMarkedStatus(jsonChild1.getString("markedStatus"));
+                        //attendM.setDays(jsonChild1.getString("attendanceData"));
                         attendM.setAttendenceStatus(jsonChild1.getString("attendanceStatus"));
                         attendM.setPunchIn(jsonChild1.getString("punchIn"));
                         attendM.setPunchOut(jsonChild1.getString("punchOut"));

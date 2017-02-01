@@ -46,7 +46,7 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
 
     public void setListener(Context context, DatePickerDialog.OnDateSetListener listener, GridView calendarView) {
         this.listener = listener;
-        mContext = context;
+        this.mContext = context;
         this.gridView = calendarView;
     }
 
@@ -69,13 +69,13 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
         monthNames = getResources().getStringArray(R.array.Month);
         monthPicker.setDisplayedValues(monthNames);
         monthPicker.setMaxValue(monthNames.length-1);
-        monthPicker.setValue(cal.get(Calendar.MONTH) + 1);
+      //  monthPicker.setValue(cal.get(Calendar.MONTH) + 1);
         // String value =getArguments().getString("ID");
         //Log.i("ValueId", "onCreateDialog: " +value);
         int year = cal.get(Calendar.YEAR);
         yearPicker.setMinValue(MIN_YEAR);
         yearPicker.setMaxValue(year);
-        yearPicker.setValue(year);
+       // yearPicker.setValue(year);
 
         builder.setView(dialog)
                 // Add action buttons
@@ -94,7 +94,7 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
                         minute = calendar.get(Calendar.MINUTE);
                         hour = calendar.get(Calendar.HOUR);
 
-                        //String ValueId="40001EI";
+                        String ValueId="40001EI";
 
                         try {
                             epoch = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
@@ -146,14 +146,14 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
         return builder.create();
     }
 
-    public android.app.Fragment newInstance(String engineerId) {
+  /*  public android.app.Fragment newInstance(String engineerId) {
         MonthYearPickerDialog month = new MonthYearPickerDialog();
         Bundle bundle = new Bundle();
         bundle.putString("ID", engineerId);
         month.setArguments(bundle);
         Log.i("newInsta", "newInstance: "+bundle);
         return month;
-    }
+    }*/
 
 
     @Override

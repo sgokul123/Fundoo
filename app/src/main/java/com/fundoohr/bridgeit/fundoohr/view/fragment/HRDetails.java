@@ -112,8 +112,10 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
         RequestParams requestParams = new RequestParams();
         requestParams.put("engineerId", engineerId);
         Log.i("HR", "onCreateView: token" + token);
-        Log.i("HR", "onCreateView: token" + token);
+        Log.i("HR", "onCreateView: token" + engineerId);
         mHR_url= getResources().getString(R.string.HR_url);
+
+
         HRDetailViewModel hrViewModel = new HRDetailViewModel();
         hrViewModel.hrDataList(token,mHR_url,requestParams, this);
         return view;

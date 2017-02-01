@@ -158,8 +158,9 @@ public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexe
         if (section == 35) {
             return 0;
         }
-        for (int i = 0; i < mStringArray.size(); i++) {
-            String l = mStringArray.get(i);
+        for (int i = 0; i < mStringArray1.size(); i++) {
+            EnggFragModel emp = mStringArray1.get(i);
+            String l = emp.getEmployeeName();
             char firstChar = l.toUpperCase().charAt(0);
             if (firstChar == section) {
                 return i;

@@ -4,6 +4,7 @@ package com.fundoohr.bridgeit.fundoohr.model;
  * Created by bridgeit on 25/1/17.
  */
 public class AttendenceModel {
+    String days;
     String attendenceStatus;
     String markedStatus;
     String punchIn;
@@ -19,6 +20,13 @@ public class AttendenceModel {
 
     public void setAttendenceStatus(String attendenceStatus) {
         this.attendenceStatus = attendenceStatus;
+    }
+    public String getDays(){
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
     }
 
     public String getMarkedStatus() {

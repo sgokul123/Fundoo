@@ -32,7 +32,7 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
     TextView textView;
     GridView calendarView;
     static String mEngeerId;
-    int getmonth, getyear;
+    int getmonth, getyear, mMonth,mYear ;
     Context mContext;
     ArrayList<AttendenceModel> attendenceModels;
     EngineerProfileActivity engineerCollapse;
@@ -46,6 +46,7 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
         setSupportActionBar(toolbar);
         textView = (TextView) findViewById(R.id.datedisplay);
         down_arrow = (Button) findViewById(R.id.date);
+        calendarView = (GridView) findViewById(R.id.calendar);
         save = (Button) findViewById(R.id.btn_save);
         cancel = (Button) findViewById(R.id.btn_cancel);
         save.setVisibility(View.GONE);
@@ -68,16 +69,25 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
                 pd.show(getFragmentManager(), "MonthYearPickerDialog");
             }
         });
-        getmonth = getIntent().getIntExtra("month", 0);
-        getyear = getIntent().getIntExtra("year", 0);
-        long timestamp = getIntent().getLongExtra("timeStamp", 0);
-        // set data to textview
-        textView.setText(monthNames[getmonth] + "," + getyear);
+
+       // long timestamp = getIntent().getLongExtra("timeStamp", 0);
+        long timestamp = System.currentTimeMillis();
+
         //get current month and year
         Calendar _calendar = Calendar.getInstance(Locale.getDefault());
-        int mMonth = _calendar.get(Calendar.MONTH) + 1;
-        int mYear = _calendar.get(Calendar.YEAR);
+        mMonth = _calendar.get(Calendar.MONTH);
+        mYear = _calendar.get(Calendar.YEAR);
         int mDate = _calendar.get(Calendar.DATE);
+
+
+        if(getIntent().getIntExtra("year", 0)!= 0) {
+            getmonth = getIntent().getIntExtra("month", 0);
+            getyear = getIntent().getIntExtra("year", 0);
+            textView.setText(monthNames[getmonth] + "," + getyear);
+        } else {
+            // set data to textview
+            textView.setText(monthNames[mMonth] + "," + mYear);
+        }
 
         //Sending the required parameters to ViewModel
         AttendenceViewModel attendenceViewModel = new AttendenceViewModel();
@@ -87,12 +97,9 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
         Log.i("sending to view model", "token: " + tokenValue);
 
         //Sending the EngineerId to month Picker
-        MonthYearPickerDialog month = new MonthYearPickerDialog();
-        getFragmentManager().beginTransaction().replace(R.id.attendance_frame, month.newInstance(mEngeerId));
-        Log.i("Attend", "onCreate: " + mEngeerId);
-
-
-
+      //  MonthYearPickerDialog month = new MonthYearPickerDialog();
+     //   getFragmentManager().beginTransaction().replace(R.id.attendance_frame, month.newInstance(mEngeerId));
+     //   Log.i("Attend", "onCreate: " + mEngeerId);
 
 
     }
@@ -101,8 +108,10 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
     @Override
     public void getAttendArrayData(ArrayList<AttendenceModel> attendenceModels) {
         this.attendenceModels = attendenceModels;
+
         Log.i("attendenceModels", "getAttendArrayData: " + attendenceModels.size());
         for (int i = 0; i <attendenceModels.size() -1; i++) {
+            Log.i("attendenceModels", "getAttendArrayData:1 days "+ attendenceModels.get(i).getDays());
             Log.i("attendenceModels", "getAttendArrayData:1 " + attendenceModels.get(i).getMarkedStatus());
             Log.i("attendenceModels", "getAttendArrayData:1 " + attendenceModels.get(i).getAttendenceStatus());
             Log.i("attendenceModels", "getAttendArrayData:1 " + attendenceModels.get(i).getPunchIn());
@@ -112,12 +121,28 @@ public class AttendanceDetailsActivity extends AppCompatActivity implements Atte
 
         }
 
+
+
+        if(getIntent().getIntExtra("year", 0)!= 0) {
+            getmonth = getIntent().getIntExtra("month", 0);
+            getyear = getIntent().getIntExtra("year", 0);
+            GridCalenderAdapter adapter = new GridCalenderAdapter(AttendanceDetailsActivity.this,attendenceModels,
+                    getmonth + 1, getyear, save, cancel);
+            adapter.notifyDataSetChanged();
+            calendarView.setAdapter(adapter);
+        } else {
+            // set data to textview
+            GridCalenderAdapter adapter = new GridCalenderAdapter(AttendanceDetailsActivity.this,attendenceModels,
+                    mMonth+1, mYear, save, cancel);
+            adapter.notifyDataSetChanged();
+            calendarView.setAdapter(adapter);
+        }
         //Adapter Class to set
-      /*  GridCalenderAdapter adapter = new GridCalenderAdapter(AttendanceDetailsActivity.this,attendenceModels,
-                                                              getmonth + 1, getyear, save, cancel);
+     /*   GridCalenderAdapter adapter = new GridCalenderAdapter(AttendanceDetailsActivity.this,attendenceModels,
+                                                              getmonth + 1, getyear, save, cancel);*/
        // adapter.notifyDataSetChanged();
-        calendarView = (GridView) findViewById(R.id.calendar);
-        calendarView.setAdapter(adapter);*/
+      //  calendarView = (GridView) findViewById(R.id.calendar);
+
 
 
 
