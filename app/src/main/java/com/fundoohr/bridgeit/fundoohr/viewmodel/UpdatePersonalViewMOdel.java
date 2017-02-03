@@ -7,9 +7,9 @@ import com.loopj.android.http.RequestParams;
  * Created by bridgeit on 27/1/17.
  */
 public class UpdatePersonalViewMOdel {
-    public void updatePersonData(RequestParams requestParams){
+    public void updatePersonData(String token,RequestParams requestParams){
         UpdatePersonalController updatePersonalController = new UpdatePersonalController();
-        updatePersonalController.updateController(requestParams);
+        updatePersonalController.updateController(token,requestParams);
 
     }
 }

@@ -24,6 +24,7 @@
             android:textStyle="bold"
             android:textColor="#6FB8D9"/>
         <ImageButton
+            android:background="#ffffff"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="280dp"
             android:layout_width="wrap_content"
@@ -171,5 +172,22 @@
             android:id="@+id/profile_training"
             android:ems="10"/>
     </RelativeLayout>
+    <Button
+        android:text="Save"
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="65dp"/>
+    <Button
+        android:text="Cancel"
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="65dp"/>
 
 </RelativeLayout>

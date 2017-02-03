@@ -1,11 +1,14 @@
 package com.fundoohr.bridgeit.fundoohr.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.BankingDetails;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.EngineerFragment;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.HRDetails;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.Personaldetails;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.ProfileDetails;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
  * Created by bridgeit on 17/12/16.
  */
 public class EngineerProfileActivity extends AppCompatActivity implements EnggViewModelInterface {
+    ProgressDialog mProgressDialog;
     TextView mId, mStatus, mCompany, mMobile, mEmail, mBLStart, mCompanyStart, mCompanyLeave, mLeave;
     Context context;
     CollapsingToolbarLayout mCollapsingToolbar;
@@ -93,7 +98,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
             case R.id.attendence:
                 Toast.makeText(getApplicationContext(), "1st selected", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EngineerProfileActivity.this, AttendanceDetailsActivity.class);
-                intent.putExtra("engineerId",mEnggId);
+                intent.putExtra("engineerId", mEnggId);
                 startActivity(intent);
                 return true;
             case R.id.personal:
@@ -124,45 +129,44 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
 
     }
 
-
     public void callPersonal() {
         bundle = getData();
         Personaldetails fragobj = new Personaldetails();
         fragobj.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, fragobj).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, fragobj).addToBackStack(null).commit();
 
     }
 
 
     public void callProfile() {
-            bundle=getData();
-            ProfileDetails prof = new ProfileDetails();
-            prof.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, prof).commit();
+        bundle = getData();
+        ProfileDetails prof = new ProfileDetails();
+        prof.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, prof).addToBackStack(null).commit();
     }
 
     public void callHr() {
-            bundle=getData();
-            HRDetails hr = new HRDetails();
-            hr.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, hr).commit();
+        bundle = getData();
+        HRDetails hr = new HRDetails();
+        hr.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, hr).addToBackStack(null).commit();
 
     }
 
     public void callTracking() {
-            bundle=getData();
-            TrackingDetails track = new TrackingDetails();
-            track.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, track).commit();
-        }
+        bundle = getData();
+        TrackingDetails track = new TrackingDetails();
+        track.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, track).addToBackStack(null).commit();
+    }
 
 
     public void callBanking() {
-            bundle=getData();
-            BankingDetails bank = new BankingDetails();
-            bank.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, bank).commit();
-        }
+        bundle = getData();
+        BankingDetails bank = new BankingDetails();
+        bank.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, bank).addToBackStack(null).commit();
+    }
 
     private Bundle getData() {
         if (mEnggId != null) {
@@ -170,13 +174,14 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
             String tokenValue = preferences.getString("token", null);
             Toast.makeText(EngineerProfileActivity.this, "" + mEnggId, Toast.LENGTH_SHORT).show();
             Log.i("engg collap", "callPersonal: " + tokenValue);
-             bundle = new Bundle();
+            bundle = new Bundle();
             bundle.putString("id", mEnggId);
             bundle.putString("token", tokenValue);
             return bundle;
-        }else {
+        } else {
             Toast.makeText(EngineerProfileActivity.this, "Wait a While", Toast.LENGTH_SHORT).show();
-        }return bundle;
+        }
+        return bundle;
 
     }
 
@@ -184,7 +189,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
     @Override
     public void enggViewMInterface(ArrayList<EnggFragModel> enggFragModels) {
         EnggFragModel enggFragModel = enggFragModels.get(0);
-        Log.i("collapse", "enggViewMInterface: " +enggFragModel.getEmployeeName());
+        Log.i("collapse", "enggViewMInterface: " + enggFragModel.getEmployeeName());
     }
 }
 

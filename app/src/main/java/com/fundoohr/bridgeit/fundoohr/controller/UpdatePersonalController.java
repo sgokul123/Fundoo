@@ -12,9 +12,11 @@ import cz.msebera.android.httpclient.Header;
  * Created by bridgeit on 27/1/17.
  */
 public class UpdatePersonalController {
-    public void updateController(RequestParams params){
+    public void updateController(String token, RequestParams params){
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.put("http://192.168.0.17:3000/updateEmployeePersonalData", params, new AsyncHttpResponseHandler() {
+        asyncHttpClient.addHeader("x-token",token);
+        Log.i("updateContro", "updateController: "+token);
+        asyncHttpClient.put("http://192.168.0.6:3000/updateEmployeePersonalData", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.i("UpdatePersonal", "onSuccess: "+responseBody);

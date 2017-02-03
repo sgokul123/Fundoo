@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EnggFragViewModel {
     Context mContext;
@@ -27,6 +28,8 @@ public class EnggFragViewModel {
 
     public void employeeList(String mEngineer_data, String tokenHeader, final EnggViewModelInterface enggViewModelInterface) {
         final ArrayList<EnggFragModel> viewModelData = new ArrayList<>();
+
+
         Log.i("EnggViewModel", "employeeList:Data is Available here ");
 
 
@@ -63,7 +66,6 @@ public class EnggFragViewModel {
                                 enggFragModel.setEngineerID(childObject.getString("engineerId"));
                                 Log.i("EngineerId", "employeeData: " + childObject.getString("engineerId"));
                                 viewModelData.add(enggFragModel);
-
 
                             }
                             enggViewModelInterface.enggViewMInterface(viewModelData);

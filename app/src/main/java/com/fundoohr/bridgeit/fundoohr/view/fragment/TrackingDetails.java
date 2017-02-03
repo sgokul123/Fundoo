@@ -1,5 +1,6 @@
 package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -21,6 +23,8 @@ import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 
 public class TrackingDetails extends Fragment implements TrackingDetailArrayInterface {
+    ProgressDialog mDailog;
+    Button mSave,mCancel;
     String mTrack_url;
     ImageButton mEditbutton;
     EditText mEditText, mEditText1, mEditText2, mEditText3, mEditText4, mEditText5;
@@ -30,6 +34,8 @@ public class TrackingDetails extends Fragment implements TrackingDetailArrayInte
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tracking_details, container, false);
+        mSave= (Button) view.findViewById(R.id.save);
+        mCancel = (Button) view.findViewById(R.id.cancel);
         mEditbutton = (ImageButton) view.findViewById(R.id.track_edit);
         mEditText = (EditText) view.findViewById(R.id.track_stack);
         mEditText1 = (EditText) view.findViewById(R.id.track_startdate);
@@ -44,6 +50,8 @@ public class TrackingDetails extends Fragment implements TrackingDetailArrayInte
         mEditText3.setFocusable(false);
         mEditText4.setFocusable(false);
         mEditText5.setFocusable(false);
+        mSave.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(view.INVISIBLE);
         mEditbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +63,9 @@ public class TrackingDetails extends Fragment implements TrackingDetailArrayInte
                 mEditText3.setFocusableInTouchMode(true);
                 mEditText4.setFocusableInTouchMode(true);
                 mEditText5.setFocusableInTouchMode(true);
+                //Button to save and Cancel to Update the Data to the Server
+                mSave.setVisibility(View.VISIBLE);
+                mCancel.setVisibility(View.VISIBLE);
             }
         });
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
@@ -67,12 +78,37 @@ public class TrackingDetails extends Fragment implements TrackingDetailArrayInte
         mTrack_url=getResources().getString(R.string.Tracking_url);
         TrackingDetailViewModel trackViewModel = new TrackingDetailViewModel();
         trackViewModel.trackingData(token,mTrack_url,requestParams, this);
+        mDailog.setMessage("Loading...");
+        mDailog.show();
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestParams paramData =new RequestParams();
+                paramData.put("",mEditText.getText().toString());
+                paramData.put("",mEditText1.getText().toString());
+                paramData.put("",mEditText2.getText().toString());
+                paramData.put("",mEditText3.getText().toString());
+                paramData.put("",mEditText4.getText().toString());
+                paramData.put("",mEditText5.getText().toString());
+               
+
+            }
+        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCancel.setVisibility(View.INVISIBLE);
+                mSave.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
         return view;
     }
 
     @Override
     public void trackingData(ArrayList<TrackingDetailsModel> trackingDetailsModels) {
+        mDailog.dismiss();
         TrackingDetailsModel trackingModel = trackingDetailsModels.get(0);
         mEditText.setText(trackingModel.getTechStack());
         mEditText1.setText(trackingModel.getBridgelabzStartDate());

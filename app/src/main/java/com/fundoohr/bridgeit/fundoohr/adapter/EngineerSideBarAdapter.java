@@ -20,21 +20,28 @@ import com.fundoohr.bridgeit.fundoohr.view.activity.EngineerProfileActivity;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.Personaldetails;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by bridgeit on 10/12/16.
  */
 public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexer {
     private ArrayList<EnggFragModel> mStringArray1;
-    ArrayList<String> mStringArray;
+private ArrayList<String> mSortList;
+
+
     private Context mContext;
 
-    public EngineerSideBarAdapter(ArrayList<EnggFragModel> mData , Context context) {
+    public EngineerSideBarAdapter(ArrayList<EnggFragModel> mData, Context context, ArrayList<String> sortList) {
          this.mStringArray1 = mData;
          this.mContext = context;
+        this.mSortList=sortList;
          Log.i("EnggSideBar", "EngineerSideBarAdapter: ghnjnj   "+mStringArray1.get(0).getEmployeeName());
 
+
      }
+
+
 
     @Override
     public int getCount() {
@@ -87,10 +94,6 @@ public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexe
                 // getFragmentManager().beginTransaction().replace(R.id.attendance_frame,personaldetails).commit();
                 personaldetails.setArguments(bundle1);
                 Log.i("enggid", "enggViewMInterface: "+bundle);
-
-
-
-
                 mContext.startActivity(intent);
 
 
@@ -121,7 +124,8 @@ public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexe
         TextView textView3 = (TextView) view1.findViewById(R.id.mob_engineer);
         TextView textView4 = (TextView) view1.findViewById(R.id.email_engineer);
 
-        textViewn.setText(mStringArray1.get(position).getEmployeeName());
+        textViewn.setText(mSortList.get(position));
+       // textViewn.setText(mStringArray1.get(position).getEmployeeName());
         textView1.setText(mStringArray1.get(position).getEmployeeStatus());
         textView2.setText(mStringArray1.get(position).getCompany());
         textView3.setText(mStringArray1.get(position).getEmployeeMobile());
@@ -151,17 +155,6 @@ public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexe
 
             String employee = l.getEmployeeName();
             char firstChar = employee.toUpperCase().charAt(0);
-            if (firstChar == section) {
-                return i;
-            }
-        }
-        if (section == 35) {
-            return 0;
-        }
-        for (int i = 0; i < mStringArray1.size(); i++) {
-            EnggFragModel emp = mStringArray1.get(i);
-            String l = emp.getEmployeeName();
-            char firstChar = l.toUpperCase().charAt(0);
             if (firstChar == section) {
                 return i;
             }

@@ -1,5 +1,6 @@
 package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -21,20 +23,23 @@ import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 
 public class HRDetails extends Fragment implements HRDetailArrayInterface {
+    ProgressDialog mProgressDialog;
+    Button mSave,mCancel;
     String mHR_url;
     SharedPreferences mSharedPreferences;
     ImageButton mImageButton;
     EditText mHiring, mFellowship, mBlstart, mCmpstrtdate, mCmpEnddate, mEnggContractInitiate, mEnggContractSigned,
             mCompanyInitiated, mCompSigned, mContractSignDate, mInitiateTransfer,
-            mTransferStatas, mTransferDate, mCertificate, mCollected, mHr_certificate_submit,
-            mHr_other_documents, mHr_original_returned, mHr_return_details, mHr_refferal;
+            mTransferStatas, mTransferDate, mCertificate, mCollected, mHrcertificatesubmit,
+            mHrotherdocuments, mHroriginalreturned, mHrreturndetails, mHrRefferal;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hrdetails, container, false);
-
+        mSave= (Button) view.findViewById(R.id.save);
+        mCancel = (Button) view.findViewById(R.id.cancel);
         mImageButton = (ImageButton) view.findViewById(R.id.hr_edit);
         mHiring = (EditText) view.findViewById(R.id.hr_hiring);
         mFellowship = (EditText) view.findViewById(R.id.hr_fellow);
@@ -52,11 +57,11 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
         mTransferDate = (EditText) view.findViewById(R.id.hr_transfer_date);
         mCertificate = (EditText) view.findViewById(R.id.hr_certificate);
         mCollected = (EditText) view.findViewById(R.id.hr_collected);
-        mHr_certificate_submit = (EditText) view.findViewById(R.id.hr_certificate_submit);
-        mHr_other_documents = (EditText) view.findViewById(R.id.hr_other_documents);
-        mHr_original_returned = (EditText) view.findViewById(R.id.hr_original_returned);
-        mHr_return_details = (EditText) view.findViewById(R.id.hr_return_details);
-        mHr_refferal = (EditText) view.findViewById(R.id.hr_refferal);
+        mHrcertificatesubmit = (EditText) view.findViewById(R.id.hr_certificate_submit);
+        mHrotherdocuments = (EditText) view.findViewById(R.id.hr_other_documents);
+        mHroriginalreturned = (EditText) view.findViewById(R.id.hr_original_returned);
+        mHrreturndetails = (EditText) view.findViewById(R.id.hr_return_details);
+        mHrRefferal = (EditText) view.findViewById(R.id.hr_refferal);
 
         mHiring.setFocusable(false);
         mFellowship.setFocusable(false);
@@ -73,12 +78,14 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
         mTransferDate.setFocusable(false);
         mCertificate.setFocusable(false);
         mCollected.setFocusable(false);
-        mHr_certificate_submit.setFocusable(false);
-        mHr_other_documents.setFocusable(false);
-        mHr_original_returned.setFocusable(false);
-        mHr_return_details.setFocusable(false);
-        mHr_refferal.setFocusable(false);
+        mHrcertificatesubmit.setFocusable(false);
+        mHrotherdocuments.setFocusable(false);
+        mHroriginalreturned.setFocusable(false);
+        mHrreturndetails.setFocusable(false);
+        mHrRefferal.setFocusable(false);
         mFellowship.setFocusable(false);
+        mSave.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(view.INVISIBLE);
 
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +105,14 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
                 mTransferDate.setFocusableInTouchMode(true);
                 mCertificate.setFocusableInTouchMode(true);
                 mCollected.setFocusableInTouchMode(true);
-                mHr_certificate_submit.setFocusableInTouchMode(true);
-                mHr_other_documents.setFocusableInTouchMode(true);
-                mHr_original_returned.setFocusableInTouchMode(true);
-                mHr_return_details.setFocusableInTouchMode(true);
-                mHr_refferal.setFocusableInTouchMode(true);
+                mHrcertificatesubmit.setFocusableInTouchMode(true);
+                mHrotherdocuments.setFocusableInTouchMode(true);
+                mHroriginalreturned.setFocusableInTouchMode(true);
+                mHrreturndetails.setFocusableInTouchMode(true);
+                mHrRefferal.setFocusableInTouchMode(true);
+                //Button to save and Cancel to Update the Data to the Server
+                mSave.setVisibility(View.VISIBLE);
+                mCancel.setVisibility(View.VISIBLE);
 
             }
         });
@@ -118,12 +128,32 @@ public class HRDetails extends Fragment implements HRDetailArrayInterface {
 
         HRDetailViewModel hrViewModel = new HRDetailViewModel();
         hrViewModel.hrDataList(token,mHR_url,requestParams, this);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestParams paramData =new RequestParams();
+                paramData.put("",mHiring.getText().toString());
+
+
+            }
+        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCancel.setVisibility(View.INVISIBLE);
+                mSave.setVisibility(View.INVISIBLE);
+            }
+        });
         return view;
 
     }
 
     @Override
     public void hrDetailData(ArrayList<HRDetailsModel> hrDetailModels) {
+        mProgressDialog.dismiss();
         HRDetailsModel modelHR = hrDetailModels.get(0);
 
         mBlstart.setText(modelHR.getBlStartDate());

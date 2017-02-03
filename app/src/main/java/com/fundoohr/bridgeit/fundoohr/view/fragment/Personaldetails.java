@@ -1,5 +1,7 @@
 package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -17,18 +19,24 @@ import android.widget.Toast;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.PersonalDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.PersonalDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.view.activity.EngineerProfileActivity;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.PersonalDetailViewModel;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.UpdatePersonalViewMOdel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
+@SuppressLint("ValidFragment")
 public class Personaldetails extends Fragment implements PersonalDetailArrayInterface {
     Button mSave, mCancel;
+
     String mPersonal_url;
     ImageButton mImageButton;
+    ProgressDialog mProgressDialog;
     SharedPreferences mSharedPreferences;
     EditText mId,mEmail,mMobile,mDOB,mFathername,mFathetmob,mOccupation,mAnnualsalary,mMumAdd,mPermanentAdd;
+
+
 
     @Nullable
     @Override
@@ -84,49 +92,24 @@ public class Personaldetails extends Fragment implements PersonalDetailArrayInte
 
 
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
-        String token=mSharedPreferences.getString("token",null);
+        final String token=mSharedPreferences.getString("token",null);
         String strtext = getArguments().getString("id");
         mPersonal_url=getResources().getString(R.string.Personal_url);
 
         RequestParams requestParams = new RequestParams();
         requestParams.put("engineerId",strtext);
         Log.i("Pd", "onCreateView: engid"+strtext);
+
         Toast.makeText(getActivity(), "gettting id"+strtext, Toast.LENGTH_SHORT).show();
-
+        //Sending the token in header and with all the required feilds to th ViewModel
         PersonalDetailViewModel personalDetailVModel= new PersonalDetailViewModel();
-        Log.i("Pd", "onCreateView: token"+token);
         personalDetailVModel.personalData(token,mPersonal_url,requestParams,this);
-        mSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RequestParams praParams = new RequestParams();
-                praParams.put("token","'jvbudvhdgd");
-                praParams.put("engineerId",mId.getText().toString());
-                praParams.put("emailId",mEmail.getText().toString());
-                praParams.put("mobile",mMobile.getText().toString());
-                praParams.put("dateOfBirth",mDOB.getText().toString());
-                praParams.put("fatherName",mFathername.getText().toString());
-                praParams.put("fatherMobile",mFathetmob.getText().toString());
-                praParams.put("occupation",mOccupation.getText().toString());
-                praParams.put("annualSalary",mAnnualsalary.getText().toString());
-                praParams.put("mumbaiAddress",mMumAdd.getText().toString());
-                praParams.put("permanentAddress",mPermanentAdd.getText().toString());
-                //Updating the edited data for that we need to create the updateviewmodelController
-                //object
-                UpdatePersonalViewMOdel updatePersonalViewMOdel = new UpdatePersonalViewMOdel();
-                updatePersonalViewMOdel.updatePersonData(praParams);
-                Log.i("UpdatePersonalViewMOdel", "onClick: "+praParams);
 
+        mProgressDialog= new ProgressDialog(getActivity());
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        Log.i("Pd", "onCreateView: token"+token);
 
-            }
-        });
-        mCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCancel.setVisibility(View.INVISIBLE);
-                mSave.setVisibility(View.INVISIBLE);
-            }
-        });
         return view;
 
     }
@@ -134,6 +117,7 @@ public class Personaldetails extends Fragment implements PersonalDetailArrayInte
     @Override
     public void personalArrayListDetail(ArrayList<PersonalDetailsModel> personalDetailsModels) {
 
+        mProgressDialog.dismiss();
         PersonalDetailsModel personalModel = personalDetailsModels.get(0);
         Log.i("personalView", "personalArrayListDetail: "+personalModel.getAnnualSalary());
         //Setting the data to View
@@ -148,6 +132,42 @@ public class Personaldetails extends Fragment implements PersonalDetailArrayInte
         mAnnualsalary.setText(personalModel.getAnnualSalary());
         mMumAdd.setText(personalModel.getMumbaiAddress());
         mPermanentAdd.setText(personalModel.getPremanentAddress());
+      ;
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestParams praParams = new RequestParams();
+               /* praParams.put("token","'jvbudvhdgd");*/
+                praParams.put("engineerId",mId.getText().toString());
+                praParams.put("emailId",mEmail.getText().toString());
+                praParams.put("mobile",mMobile.getText().toString());
+
+                Log.i("mobile", "onClick: "+mMobile.getText().toString());
+
+                praParams.put("dateOfBirth",mDOB.getText().toString());
+                praParams.put("fatherName",mFathername.getText().toString());
+                praParams.put("fatherMobile",mFathetmob.getText().toString());
+                praParams.put("occupation",mOccupation.getText().toString());
+                praParams.put("annualSalary",mAnnualsalary.getText().toString());
+                praParams.put("mumbaiAddress",mMumAdd.getText().toString());
+                praParams.put("permanentAddress",mPermanentAdd.getText().toString());
+                //Updating the edited data for that we need to create the updateviewmodelController
+                //object
+              /*  UpdatePersonalViewMOdel updatePersonalViewMOdel = new UpdatePersonalViewMOdel();
+                updatePersonalViewMOdel.updatePersonData(token,praParams);
+                Log.i("UpdatePersonalViewMOdel", "onClick: "+token);
+                Log.i("UpdatePersonalViewMOdel", "onClick: "+praParams);*/
+
+
+            }
+        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCancel.setVisibility(View.INVISIBLE);
+                mSave.setVisibility(View.INVISIBLE);
+            }
+        });
 
 
     }

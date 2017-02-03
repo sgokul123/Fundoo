@@ -1,5 +1,6 @@
 package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 
 public class ProfileDetails extends Fragment implements ProfileDetailArrayInterface {
+    ProgressDialog mDailog;
+    Button mSave,mCancel;
     String mProfile_url;
     ImageButton mImageButton;
     SharedPreferences mSharedPreferences;
@@ -33,6 +37,8 @@ public class ProfileDetails extends Fragment implements ProfileDetailArrayInterf
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_profile__details,container,false);
+        mSave= (Button) view.findViewById(R.id.save);
+        mCancel = (Button) view.findViewById(R.id.cancel);
        // relativeLayout= (RelativeLayout) view.findViewById(R.id.profile_relative);
         mImageButton= (ImageButton) view.findViewById(R.id.profile_edit);
         mProfile_diploma= (EditText) view.findViewById(R.id.profile_diploma);
@@ -54,6 +60,8 @@ public class ProfileDetails extends Fragment implements ProfileDetailArrayInterf
         mProfile_finalyear.setFocusable(false);
         mProfile_yop.setFocusable(false);
         mProfile_disciplane.setFocusable(false);
+        mSave.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(view.INVISIBLE);
         /*relativeLayout.setFocusable(false);*/
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +75,9 @@ public class ProfileDetails extends Fragment implements ProfileDetailArrayInterf
                 mProfile_training_institute.setFocusableInTouchMode(true);
                 mProfile_training_duration.setFocusableInTouchMode(true);
                 mProfile_training.setFocusableInTouchMode(true);
+                //Button to save and Cancel to Update the Data to the Server
+                mSave.setVisibility(View.VISIBLE);
+                mCancel.setVisibility(View.VISIBLE);
 
             }
         });
@@ -82,11 +93,15 @@ public class ProfileDetails extends Fragment implements ProfileDetailArrayInterf
 
         ProfileDetailViewModel profileDetailViewModel = new ProfileDetailViewModel();
         profileDetailViewModel.profileData(token,mProfile_url,requestParams,this);
+        mDailog = new ProgressDialog(getActivity());
+        mDailog.setMessage("Loading....");
+        mDailog.show();
         return view;
     }
 
     @Override
     public void profileArraylistData(ArrayList<ProfileDetailsModel> profileDMOdel) {
+        mDailog.dismiss();
         ProfileDetailsModel getDetailsModel = profileDMOdel.get(0);
         Log.i("profView", "profileArraylistData: "+getDetailsModel.getDiploma());
         //Setting the data to View

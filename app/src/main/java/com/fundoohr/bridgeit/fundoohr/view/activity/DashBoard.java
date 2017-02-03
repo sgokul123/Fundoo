@@ -28,7 +28,7 @@ public class DashBoard extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-        enggFrag = new EngineerFragment(this, mDailog);
+        enggFrag = new EngineerFragment(this);
         mtoolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.toolcolor));
         setSupportActionBar(mtoolbar);
 
@@ -73,9 +73,9 @@ public class DashBoard extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_engineer) {
             mtoolbar.setTitle(item.getTitle().toString());
-            mDailog= new ProgressDialog(DashBoard.this);
+          /*  mDailog= new ProgressDialog(DashBoard.this);
             mDailog.setMessage("Loading....");
-            mDailog.show();
+            mDailog.show();*/
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,enggFrag).commit();
         } else if (id == R.id.nav_attend) {
             mtoolbar.setTitle(item.getTitle().toString());

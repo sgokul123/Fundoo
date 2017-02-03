@@ -1,5 +1,6 @@
 package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -21,61 +23,97 @@ import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 
 public class BankingDetails extends Fragment implements BankingDetailArrayInterface {
-    String mBank_url;
+    ProgressDialog mProgressDialog;
+    String mBankurl;
+    Button mSave,mCancel;
     ImageButton mImageButton;
     SharedPreferences mSharedPreferences;
-    EditText mBank_AccNo, mBank_Bankname, mBank_IFSC, mBank_Pan, mBank_Pay, mBank_Reason;
+    EditText mBankAccNo, mBankBankname, mBankIFSC, mBankPan, mBankPay, mBankReason;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_banking_details, container, false);
+        mSave= (Button) view.findViewById(R.id.save);
+        mCancel = (Button) view.findViewById(R.id.cancel);
         mImageButton = (ImageButton) view.findViewById(R.id.bank_edit);
-        mBank_AccNo = (EditText) view.findViewById(R.id.bank_AccNo);
-        mBank_Bankname = (EditText) view.findViewById(R.id.bank_bankname);
-        mBank_IFSC = (EditText) view.findViewById(R.id.bank_ifsc);
-        mBank_Pan = (EditText) view.findViewById(R.id.bank_pan);
-        mBank_Pay = (EditText) view.findViewById(R.id.bank_pay_salary);
-        mBank_Reason = (EditText) view.findViewById(R.id.bank_reason);
+        mBankAccNo = (EditText) view.findViewById(R.id.bank_AccNo);
+        mBankBankname = (EditText) view.findViewById(R.id.bank_bankname);
+        mBankIFSC = (EditText) view.findViewById(R.id.bank_ifsc);
+        mBankPan = (EditText) view.findViewById(R.id.bank_pan);
+        mBankPay = (EditText) view.findViewById(R.id.bank_pay_salary);
+        mBankReason = (EditText) view.findViewById(R.id.bank_reason);
 
-        mBank_AccNo.setFocusable(false);
-        mBank_Bankname.setFocusable(false);
-        mBank_IFSC.setFocusable(false);
-        mBank_Pan.setFocusable(false);
-        mBank_Pay.setFocusable(false);
-        mBank_Reason.setFocusable(false);
+        mBankAccNo.setFocusable(false);
+        mBankBankname.setFocusable(false);
+        mBankIFSC.setFocusable(false);
+        mBankPan.setFocusable(false);
+        mBankPay.setFocusable(false);
+        mBankReason.setFocusable(false);
+        mSave.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(view.INVISIBLE);
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBank_AccNo.setFocusableInTouchMode(true);
-                mBank_Bankname.setFocusableInTouchMode(true);
-                mBank_IFSC.setFocusableInTouchMode(true);
-                mBank_Pan.setFocusableInTouchMode(true);
-                mBank_Pay.setFocusableInTouchMode(true);
-                mBank_Reason.setFocusableInTouchMode(true);
+                mBankAccNo.setFocusableInTouchMode(true);
+                mBankBankname.setFocusableInTouchMode(true);
+                mBankIFSC.setFocusableInTouchMode(true);
+                mBankPan.setFocusableInTouchMode(true);
+                mBankPay.setFocusableInTouchMode(true);
+                mBankReason.setFocusableInTouchMode(true);
+                //Button to save and Cancel to Update the Data to the Server
+                mSave.setVisibility(View.VISIBLE);
+                mCancel.setVisibility(View.VISIBLE);
             }
         });
+
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
         String token = mSharedPreferences.getString("token", null);
         String engineerId = getArguments().getString("id");
-        mBank_url=getResources().getString(R.string.Bank_url);
+        mBankurl =getResources().getString(R.string.Bank_url);
         RequestParams requestParams =new RequestParams();
         requestParams.put("engineerId",engineerId);
 
         BankingViewModel bankViewModel = new BankingViewModel();
-        bankViewModel.bankDataList(token,mBank_url,requestParams,this);
+        bankViewModel.bankDataList(token, mBankurl,requestParams,this);
+        mProgressDialog= new ProgressDialog(getActivity());
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestParams paramData =new RequestParams();
+                paramData.put("accountNumber", mBankAccNo.getText().toString());
+                paramData.put("bankName", mBankBankname.getText().toString());
+                paramData.put("ifscCode", mBankIFSC.getText().toString());
+                paramData.put("pan", mBankPan.getText().toString());
+                paramData.put("paySalary", mBankPay.getText().toString());
+                paramData.put("reason", mBankReason.getText().toString());
+
+            }
+        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCancel.setVisibility(View.INVISIBLE);
+                mSave.setVisibility(View.INVISIBLE);
+            }
+        });
+
         return view;
     }
 
     @Override
     public void bankArrayData(ArrayList<BankingDetailsModel> bankingDModel) {
+        mProgressDialog.dismiss();
+
         BankingDetailsModel bankingDetailsModel = bankingDModel.get(0);
         Log.i("BankView", "bankArrayData: "+bankingDetailsModel.getAccountNumber());
-        mBank_AccNo.setText(bankingDetailsModel.getAccountNumber());
-        mBank_Bankname.setText(bankingDetailsModel.getBankName());
-        mBank_IFSC.setText(bankingDetailsModel.getIfscCode());
-        mBank_Pan.setText(bankingDetailsModel.getPan());
-        mBank_Reason.setText(bankingDetailsModel.getReason());
-        mBank_Pay.setText(bankingDetailsModel.getPaySalay());
+        mBankAccNo.setText(bankingDetailsModel.getAccountNumber());
+        mBankBankname.setText(bankingDetailsModel.getBankName());
+        mBankIFSC.setText(bankingDetailsModel.getIfscCode());
+        mBankPan.setText(bankingDetailsModel.getPan());
+        mBankReason.setText(bankingDetailsModel.getReason());
+        mBankPay.setText(bankingDetailsModel.getPaySalay());
     }
 }

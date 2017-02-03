@@ -35,6 +35,7 @@ import java.util.GregorianCalendar;
 public class MonthYearPickerDialog extends DialogFragment implements AttendenceArrayInterface{
     SharedPreferences mSharedPreferences;
     String ValueId;
+    AttendanceDetailsActivity attendanceDetailsActivity;
     // private static final int MAX_YEAR = 2099;
     private static final int MIN_YEAR = 2016;
     private DatePickerDialog.OnDateSetListener listener;
@@ -120,7 +121,7 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
                         // Getting the viewmodel class obeject
                         AttendenceViewModel attendenceViewModel = new AttendenceViewModel();
                         attendenceViewModel.attendViewModelData(attendence_url,epoch,ValueId,token,
-                                new AttendanceDetailsActivity()); /*{
+                                attendanceDetailsActivity); /*{
                             @Override
                             public void getAttendArrayData(ArrayList<AttendenceModel> attendenceModels) {
 

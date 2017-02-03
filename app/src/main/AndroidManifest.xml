@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:theme="@style/your_own_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.DashBoard"
+            android:name=".view.activity.DashBoard"
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -31,9 +31,9 @@
         <action android:name="android.intent.action.SEARCH" />
 
         <activity
-            android:name="com.fundoohr.bridgeit.fundoohr.view.activity.AttendanceDetailsActivity"
+            android:name=".view.activity.AttendanceDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.SearchEngineer"></activity>
+        <activity android:name=".view.SearchEngineer" />
     </application>
 
 </manifest>
