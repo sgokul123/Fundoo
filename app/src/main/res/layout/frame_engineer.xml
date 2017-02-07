@@ -18,6 +18,18 @@
         android:drawableRight="@android:drawable/ic_menu_search"
         android:inputType="textVisiblePassword"/>
 
+   <!-- <android.support.v7.widget.SearchView
+        android:id="@+id/searchBox"
+        android:layout_width="300dp"
+        android:layout_marginLeft="36dp"
+        android:layout_height="35dp"
+        android:background="@drawable/input"
+        android:hint="Search here.."
+        android:layout_marginBottom="0dp"
+        android:paddingLeft="10dp"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:inputType="textVisiblePassword"/>-->
+
     <LinearLayout
     android:id="@+id/linear"
     android:layout_width="match_parent"

@@ -26,7 +26,7 @@ import android.widget.SearchView;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.adapter.EngineerSideBarAdapter;
 
-import com.fundoohr.bridgeit.fundoohr.adapter.MySearchAdapter;
+
 import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
 import com.fundoohr.bridgeit.fundoohr.utility.SideBarEngineer;
@@ -34,14 +34,25 @@ import com.fundoohr.bridgeit.fundoohr.viewmodel.EnggFragViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by bridgeit on 10/12/16.
- */
+ /**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
 @SuppressLint("ValidFragment")
 public class EngineerFragment extends Fragment implements EnggViewModelInterface {
     String mEngineer_url;
-    String arr[] = new String[35];
+    //String arr[] = new String[35];
+    List<String> arr=new ArrayList<>();
+    List<String> arrCopy=new ArrayList<>();
 
     ListView mListview;
     Context mContext;
@@ -59,7 +70,7 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
     @SuppressLint("ValidFragment")
     public EngineerFragment(Context applicationContext) {
         this.mContext = applicationContext;
-       // this.mDailog = mProgressDialog;
+        // this.mDailog = mProgressDialog;
     }
 
 
@@ -102,7 +113,7 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
 
         Log.i("EnggVIew", "enggViewMInterface: " + enggFragModels.get(8).getEmployeeName());
         Log.i("EnggVIew", "enggViewMInterface:id " + enggFragModels.get(3).getEngineerID());
-         ArrayList<String> sortList = new ArrayList<>();
+        ArrayList<String> sortList = new ArrayList<>();
         for (int i = 0; i <enggFragModels.size() ; i++) {
             String name = enggFragModels.get(i).getEmployeeName();
             sortList.add(name);
@@ -116,14 +127,16 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
             //strArray = new String[] {enggFragModels.get(i).getEmployeeName()};
             strings = new ArrayList<>();
             strings.add(searchName);
-            arr[i] = searchName;
-            Bundle bundle = new Bundle();
+            arr.add(searchName);
+            arrCopy.add(searchName);
+        }
+            /*Bundle bundle = new Bundle();
             bundle.putStringArray("array",arr);
 
             Intent intent = getActivity().getIntent();
-            intent.putExtras(bundle);
+            intent.putExtras(bundle);*/
 
-        }
+
 /*
         for (int j = 0; j < arr.length; j++) {
             Log.i("arr", "enggViewMInterface: " + arr[j]);
@@ -140,7 +153,24 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter2.getFilter().filter(charSequence);
+                //adapter2.getFilter().filter(charSequence);
+
+                if(charSequence.length()==0){
+                    adapter2.getFilter().filter(charSequence);
+                    //when search field is empty display full list
+                    arr.clear();
+                    for(String name: arrCopy){
+                        arr.add(name);
+                    }
+                    //When arr list is updated call notifyDataSetChanged to update listview
+                    adapter2.notifyDataSetChanged();
+                }else{
+                    filterArrayList(charSequence.toString());
+                    //When arr list is updated call notifyDataSetChanged to update listview
+                    adapter2.notifyDataSetChanged();
+                }
+
+
             }
 
             @Override
@@ -155,6 +185,17 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
         mListview.setAdapter(searchBox);*/
 
     }
+
+
+
+    //This method used to filter list according to the search key word
+    private void filterArrayList(String  searchKeyWord) {
+        arr.clear();
+        for (String curVal : arrCopy){
+            if (curVal.contains(searchKeyWord)){
+                arr.add(curVal);
+            }
+        }
+
+    }
 }
-
-

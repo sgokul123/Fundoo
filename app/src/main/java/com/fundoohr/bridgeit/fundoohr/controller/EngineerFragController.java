@@ -26,17 +26,9 @@ import cz.msebera.android.httpclient.Header;
  */
 public class EngineerFragController {
 
-    ProgressDialog progressDialog;
-    Context mContext;
-
-
-    public EngineerFragController(Context mContext, ProgressDialog mDailog) {
-        this.mContext=mContext;
-        this.progressDialog=mDailog;
-    }
-
-    public void getEnggFragController(String mEngineer_data, String tokenHeader, final EnggFragInterface enggFragInterface) {
-        progressDialog = new ProgressDialog(mContext);
+    public void getEnggFragController(String mEngineer_data, String tokenHeader,
+                                      final EnggFragInterface enggFragInterface) {
+       // progressDialog = new ProgressDialog(mContext);
         Log.i("url", "getEnggFragController: "+mEngineer_data);
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.addHeader("x-token",tokenHeader);
@@ -49,18 +41,18 @@ public class EngineerFragController {
                 if(responseBody != null){
                     enggFragInterface.employeeData(responseBody);
                     Log.i("Engi Available", "onSuccess: "+responseBody);
-                    Toast.makeText(mContext, "Check Internet Connetion", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                   /* Toast.makeText(mContext, "Check Internet Connetion", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();*/
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                /* enggFragInterface.employeeData(responseBody);*/
-                Toast.makeText(mContext, "Server not Responding", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, "Server not Responding", Toast.LENGTH_SHORT).show();
                 if(statusCode== 0){
                     Log.i("Data Available", "Failure: " +statusCode);
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                 }
             }
         });

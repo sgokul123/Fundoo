@@ -7,7 +7,6 @@ import com.fundoohr.bridgeit.fundoohr.callback.BankingDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.callback.BankingDetailBInterface;
 import com.fundoohr.bridgeit.fundoohr.controller.BankingController;
 import com.fundoohr.bridgeit.fundoohr.model.BankingDetailsModel;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.BankingDetails;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -17,6 +16,15 @@ import java.util.ArrayList;
 
 /**
  * Created by bridgeit on 24/1/17.
+ * * Purpose:
+ * 1.This Class Is The ViewModel Of MVVM Design Pattern.
+ * 2.Holding The Model Required For The Content View List.
+ * 3.This Class Has The ContentListController Object To Retrieve The Necessary
+ * Model.
+ * Carries The Required Field Data To The View That Is If You Want Data From
+ * Multiple Tables.
+ * As In Eg:
+ * Here We Can Take The Necessary Data And Pass It To The View.
  */
 public class BankingViewModel {
     Context mContext;

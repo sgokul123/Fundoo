@@ -1,8 +1,11 @@
+/*
 package com.fundoohr.bridgeit.fundoohr.model;
 
+*/
 /**
  * Created by bridgeit on 2/1/17.
- */
+ *//*
+
 public class SearchModel {
     public String mName;
     public String mStatus;
@@ -62,3 +65,4 @@ public class SearchModel {
         this.mMobile = mMobile;
     }
 }
+*/

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -17,17 +18,16 @@ import android.widget.TextView;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
 import com.fundoohr.bridgeit.fundoohr.view.activity.EngineerProfileActivity;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.Personaldetails;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.PersonaldetailsFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by bridgeit on 10/12/16.
  */
 public class EngineerSideBarAdapter extends BaseAdapter implements SectionIndexer {
     private ArrayList<EnggFragModel> mStringArray1;
-private ArrayList<String> mSortList;
+    private ArrayList<String> mSortList;
 
 
     private Context mContext;
@@ -35,7 +35,7 @@ private ArrayList<String> mSortList;
     public EngineerSideBarAdapter(ArrayList<EnggFragModel> mData, Context context, ArrayList<String> sortList) {
          this.mStringArray1 = mData;
          this.mContext = context;
-        this.mSortList=sortList;
+         this.mSortList=sortList;
          Log.i("EnggSideBar", "EngineerSideBarAdapter: ghnjnj   "+mStringArray1.get(0).getEmployeeName());
 
 
@@ -65,7 +65,7 @@ private ArrayList<String> mSortList;
         View view1 = (View) inflate.inflate(R.layout.activity_card_engineer, null);
 
         LinearLayout header = (LinearLayout) view1.findViewById(R.id.section);
-        CardView cardview = (CardView) header.findViewById(R.id.engineer_card_data);
+        CardView cardview = (CardView) header.findViewById(R.id.engineercarddata);
         //On Click of Cardview the data is displayed on Collasping Layout
         //Which Contains The Engineers Info,Hence to Send the data to that layout
         //Bundle is used and data is passed through bundle using intent
@@ -74,6 +74,7 @@ private ArrayList<String> mSortList;
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,EngineerProfileActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("imageUrl",mStringArray1.get(position).getImageUrl());
                 bundle.putString("name",mStringArray1.get(position).getEmployeeName());
                 bundle.putString("id",mStringArray1.get(position).getEngineerID());
                 bundle.putString("status",mStringArray1.get(position).getEmployeeStatus());
@@ -88,7 +89,7 @@ private ArrayList<String> mSortList;
 
 
 
-                Personaldetails personaldetails = new Personaldetails();
+                PersonaldetailsFragment personaldetails = new PersonaldetailsFragment();
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("Id", mStringArray1.get(position).getEngineerID());
                 // getFragmentManager().beginTransaction().replace(R.id.attendance_frame,personaldetails).commit();
@@ -117,15 +118,16 @@ private ArrayList<String> mSortList;
         }
         TextView textView = (TextView) view1.findViewById(R.id.name_engineer);
         textView.setText(name);
-
+        ImageView imageView = (ImageView) view1.findViewById(R.id.imageEmployee);
         TextView textViewn = (TextView) view1.findViewById(R.id.name_engineer);
         TextView textView1 = (TextView) view1.findViewById(R.id.fellow_engineer);
         TextView textView2 = (TextView) view1.findViewById(R.id.company_engineer);
         TextView textView3 = (TextView) view1.findViewById(R.id.mob_engineer);
         TextView textView4 = (TextView) view1.findViewById(R.id.email_engineer);
 
-        textViewn.setText(mSortList.get(position));
-       // textViewn.setText(mStringArray1.get(position).getEmployeeName());
+        //textViewn.setText(mSortList.get(position))
+
+        textViewn.setText(mStringArray1.get(position).getEmployeeName());
         textView1.setText(mStringArray1.get(position).getEmployeeStatus());
         textView2.setText(mStringArray1.get(position).getCompany());
         textView3.setText(mStringArray1.get(position).getEmployeeMobile());

@@ -1,3 +1,4 @@
+/*
 package com.fundoohr.bridgeit.fundoohr.adapter;
 
 import android.content.Context;
@@ -72,7 +73,7 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) convertView.getTag();
         }
         EnggFragModel searchModel=(EnggFragModel) getItem(position);
-       holder.name.setText(searchModel.getEmployeeName());
+        holder.name.setText(searchModel.getEmployeeName());
         holder.status.setText(searchModel.getEmployeeStatus());
         holder.company.setText(searchModel.getCompany());
         holder.mobile.setText(searchModel.getEmployeeMobile());
@@ -131,3 +132,4 @@ public class MySearchAdapter extends BaseAdapter implements Filterable {
     }
 }
 
+*/

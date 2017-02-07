@@ -22,7 +22,7 @@ import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
-public class HRDetails extends Fragment implements HRDetailArrayInterface {
+public class HRDetailsFragment extends Fragment implements HRDetailArrayInterface {
     ProgressDialog mProgressDialog;
     Button mSave,mCancel;
     String mHR_url;

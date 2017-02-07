@@ -74,6 +74,7 @@ public class SideBarEngineer extends View {
         //Alphabet Color
         paint.setColor(Color.rgb(74,94,119));
         paint.setTextSize(50);
+       
         paint.setTextAlign(Paint.Align.CENTER);
         float widthCenter = getMeasuredWidth() / 2;
         for (int i = 0; i < l.length; i++) {

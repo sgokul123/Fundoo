@@ -16,8 +16,17 @@ import android.view.MenuItem;
 
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.view.fragment.EngineerFragment;
+/**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
 
-public class DashBoard extends AppCompatActivity
+public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar mtoolbar;
     ProgressDialog mDailog;
@@ -69,13 +78,13 @@ public class DashBoard extends AppCompatActivity
 
         if (id == R.id.nav_dashboard) {
             mtoolbar.setTitle(item.getTitle().toString());
-            Intent intent = new Intent(DashBoard.this,DashBoard.class);
+            Intent intent = new Intent(DashBoardActivity.this,DashBoardActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_engineer) {
             mtoolbar.setTitle(item.getTitle().toString());
-          /*  mDailog= new ProgressDialog(DashBoard.this);
+            mDailog= new ProgressDialog(DashBoardActivity.this);
             mDailog.setMessage("Loading....");
-            mDailog.show();*/
+            mDailog.show();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,enggFrag).commit();
         } else if (id == R.id.nav_attend) {
             mtoolbar.setTitle(item.getTitle().toString());
@@ -84,7 +93,7 @@ public class DashBoard extends AppCompatActivity
             mtoolbar.setTitle(item.getTitle().toString());
         } else if (id == R.id.nav_logout) {
             mtoolbar.setTitle(item.getTitle().toString());
-            Intent intent = new Intent(DashBoard.this, LoginActivity.class);
+            Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_clients) {
             mtoolbar.setTitle(item.getTitle().toString());

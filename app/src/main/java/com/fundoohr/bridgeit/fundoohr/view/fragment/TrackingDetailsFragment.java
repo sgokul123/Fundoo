@@ -21,8 +21,16 @@ import com.fundoohr.bridgeit.fundoohr.viewmodel.TrackingDetailViewModel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
-
-public class TrackingDetails extends Fragment implements TrackingDetailArrayInterface {
+/**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
+public class TrackingDetailsFragment extends Fragment implements TrackingDetailArrayInterface {
     ProgressDialog mDailog;
     Button mSave,mCancel;
     String mTrack_url;

@@ -2,8 +2,13 @@ package com.fundoohr.bridgeit.fundoohr.model;
 
 /**
  * Created by bridgeit on 8/1/17.
+ * Purpose:
+ * It Will Contains The Data Object Only WhereIn If You Declare The Object
+ * Private You Need To Use Getter And Setter.It Will Have The State And
+ * Behaviour Of The Class.
  */
 public class EnggFragModel {
+    String imageUrl;
     String engineerID;
     String employeeName;
     String employeeStatus;
@@ -19,9 +24,10 @@ public class EnggFragModel {
     public EnggFragModel() {
     }
 
-    public EnggFragModel(String engineerID, String employeeName, String employeeStatus,
+    public EnggFragModel(String imageUrl,String engineerID, String employeeName, String employeeStatus,
                          String company, String employeeEmail, String employeeMobile,
                          String blStartDate,String companyStartDate,String companyLeaveDate, String leaveTaken) {
+        this.imageUrl = imageUrl;
         this.engineerID = engineerID;
         this.employeeName = employeeName;
         this.employeeStatus = employeeStatus;
@@ -32,6 +38,12 @@ public class EnggFragModel {
         this.companyStartDate=companyStartDate;
         this.companyLeaveDate=companyLeaveDate;
         this.leaveTaken=leaveTaken;
+    }
+    public String getImageUrl(){
+        return imageUrl;
+    }
+    public void setImageurl(String imageUrl){
+        this.imageUrl = imageUrl;
     }
 
     public String getEngineerID() {

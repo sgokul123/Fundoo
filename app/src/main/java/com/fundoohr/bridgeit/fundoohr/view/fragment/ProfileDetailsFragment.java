@@ -22,8 +22,17 @@ import com.fundoohr.bridgeit.fundoohr.viewmodel.ProfileDetailViewModel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
+/**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
 
-public class ProfileDetails extends Fragment implements ProfileDetailArrayInterface {
+public class ProfileDetailsFragment extends Fragment implements ProfileDetailArrayInterface {
     ProgressDialog mDailog;
     Button mSave,mCancel;
     String mProfile_url;

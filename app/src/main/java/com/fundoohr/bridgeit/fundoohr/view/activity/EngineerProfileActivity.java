@@ -1,14 +1,11 @@
 package com.fundoohr.bridgeit.fundoohr.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,20 +17,28 @@ import android.support.v7.widget.Toolbar;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.BankingDetails;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.EngineerFragment;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.HRDetails;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.Personaldetails;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.ProfileDetails;
-import com.fundoohr.bridgeit.fundoohr.view.fragment.TrackingDetails;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.BankingDetailsFragment;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.HRDetailsFragment;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.PersonaldetailsFragment;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.ProfileDetailsFragment;
+import com.fundoohr.bridgeit.fundoohr.view.fragment.TrackingDetailsFragment;
 
 import java.util.ArrayList;
 
 /**
  * Created by bridgeit on 17/12/16.
- */
+ * /**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
+
 public class EngineerProfileActivity extends AppCompatActivity implements EnggViewModelInterface {
-    ProgressDialog mProgressDialog;
+
     TextView mId, mStatus, mCompany, mMobile, mEmail, mBLStart, mCompanyStart, mCompanyLeave, mLeave;
     Context context;
     CollapsingToolbarLayout mCollapsingToolbar;
@@ -131,7 +136,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
 
     public void callPersonal() {
         bundle = getData();
-        Personaldetails fragobj = new Personaldetails();
+        PersonaldetailsFragment fragobj = new PersonaldetailsFragment();
         fragobj.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, fragobj).addToBackStack(null).commit();
 
@@ -140,14 +145,14 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
 
     public void callProfile() {
         bundle = getData();
-        ProfileDetails prof = new ProfileDetails();
+        ProfileDetailsFragment prof = new ProfileDetailsFragment();
         prof.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, prof).addToBackStack(null).commit();
     }
 
     public void callHr() {
         bundle = getData();
-        HRDetails hr = new HRDetails();
+        HRDetailsFragment hr = new HRDetailsFragment();
         hr.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, hr).addToBackStack(null).commit();
 
@@ -155,7 +160,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
 
     public void callTracking() {
         bundle = getData();
-        TrackingDetails track = new TrackingDetails();
+        TrackingDetailsFragment track = new TrackingDetailsFragment();
         track.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, track).addToBackStack(null).commit();
     }
@@ -163,7 +168,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
 
     public void callBanking() {
         bundle = getData();
-        BankingDetails bank = new BankingDetails();
+        BankingDetailsFragment bank = new BankingDetailsFragment();
         bank.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame, bank).addToBackStack(null).commit();
     }

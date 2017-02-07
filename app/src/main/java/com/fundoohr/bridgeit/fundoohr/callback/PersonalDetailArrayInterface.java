@@ -1,6 +1,7 @@
 package com.fundoohr.bridgeit.fundoohr.callback;
 
 import com.fundoohr.bridgeit.fundoohr.model.PersonalDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.model.UpdatePersonalModel;
 
 import java.util.ArrayList;
 
@@ -9,4 +10,5 @@ import java.util.ArrayList;
  */
 public interface PersonalDetailArrayInterface {
     public void personalArrayListDetail(ArrayList <PersonalDetailsModel> personalDetailsModels );
+    public void updatePersonalDetail(UpdatePersonalModel updatePersonalModel);
 }

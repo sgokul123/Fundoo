@@ -7,7 +7,7 @@
     android:background="#ffff"
     android:clickable="true"
 
-    tools:context=".view.fragment.Personaldetails">
+    tools:context=".view.fragment.PersonaldetailsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

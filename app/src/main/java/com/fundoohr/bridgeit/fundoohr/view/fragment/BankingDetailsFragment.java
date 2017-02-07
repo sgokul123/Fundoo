@@ -21,8 +21,17 @@ import com.fundoohr.bridgeit.fundoohr.viewmodel.BankingViewModel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
+/**
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
 
-public class BankingDetails extends Fragment implements BankingDetailArrayInterface {
+public class BankingDetailsFragment extends Fragment implements BankingDetailArrayInterface {
     ProgressDialog mProgressDialog;
     String mBankurl;
     Button mSave,mCancel;

@@ -1,5 +1,5 @@
 /*
-package com.example.bridgeit.fundoo.view;
+package com.fundoohr.bridgeit.fundoohr.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,9 +8,10 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.bridgeit.fundoo.R;
-import com.example.bridgeit.fundoo.adapter.MySearchAdapter;
-import com.example.bridgeit.fundoo.model.SearchModel;
+
+import com.fundoohr.bridgeit.fundoohr.R;
+import com.fundoohr.bridgeit.fundoohr.adapter.MySearchAdapter;
+import com.fundoohr.bridgeit.fundoohr.model.SearchModel;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class SearchEngineer extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                adapter_search.getFilter().filter(charSequence.toString());
             }
 
             @Override

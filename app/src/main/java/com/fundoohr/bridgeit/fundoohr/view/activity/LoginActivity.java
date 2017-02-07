@@ -17,19 +17,29 @@ import android.widget.Toast;
 
 import com.fundoohr.bridgeit.fundoohr.R;
 
-import com.fundoohr.bridgeit.fundoohr.callback.TokenableInterface;
+import com.fundoohr.bridgeit.fundoohr.callback.ILoginCallback;
 import com.fundoohr.bridgeit.fundoohr.model.LoginModel;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.LoginViewModel;
+
+import java.util.regex.Pattern;
+
 /**
- *
-**/
-//LoginActivity that extends AppCompatActivity and implements the TokenableInterface Interface
-public class LoginActivity extends AppCompatActivity implements TokenableInterface {
+ * * Purpose:
+ * It Is The View Of MVVM Design Pattern.
+ * It Is The UI Class Which Hold The UI Elements.
+ * It Listens To Action Performed In UI class.
+ * It Implements And The Observer Pattern To Listen Changes In The View model.
+ * It Holds The View model To Update Its State Of The UI.
+ * It is The Activity Which Need To Be Included In Manifest.xml File.
+ **/
+//LoginActivity that extends AppCompatActivity and implements the ILoginCallback Interface
+public class LoginActivity extends AppCompatActivity implements ILoginCallback {
     EditText mUsername, mPassword;
     Button mClick;
-    String name;
-    String pswrd;
+    String mName;
+    String mPswrd;
     String mTimeMill;
+    String mLogin;
 
     ProgressDialog mProgressDialog;
     SharedPreferences mSharedPreferences;
@@ -47,47 +57,76 @@ public class LoginActivity extends AppCompatActivity implements TokenableInterfa
         mClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Checking the internet Connectivity and progress dailog box
-                ConnectivityManager connectivityManager
-                        = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                mProgressDialog = new ProgressDialog(LoginActivity.this);
-                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-                if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
-                    String mLogin = getResources().getString(R.string.login_url);
-                    Log.i("loginActivity", "onClick: " + mLogin);
-                    mProgressDialog.setMessage("Wait..Login....is in Process");
-                    mProgressDialog.setCancelable(false);
-                    mProgressDialog.show();
-                    name = mUsername.getText().toString();
-                    pswrd = mPassword.getText().toString();
-                    passingData(name, pswrd, mLogin);
+
+               /* Intent intent = new Intent(LoginActivity.this, AttendanceDetailsActivity.class);
+                startActivity(intent);*/
+
+                //Getting the url from Strings file and passing it to ViewModel
+                mLogin = getResources().getString(R.string.login_url);
+                mName = mUsername.getText().toString();
+                mPswrd = mPassword.getText().toString();
+
+                //Validation of login
+                String userName = getResources().getString(R.string.patternMatch);
+                boolean userMatch = Pattern.matches(userName, mName);
+
+                if (!mName.equals("") && !mPswrd.equals("") && userMatch && mPswrd.length() > 5) {
+                    // passingData(mName, mPswrd, mLogin);
+                    connectvity();
 
                 } else {
-                    mProgressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "Wait While...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter the Correct UserName & Password", Toast.LENGTH_SHORT).show();
                 }
+
+
+
             }
         });
     }
 
-    //Passing the data to viewModel to the method CheckData
-    private void passingData(String name, String pswrd, String s) {
-        LoginViewModel viewModel = new LoginViewModel();
-        Log.i("loginActivity in LVM", "onClick: " + s);
-        viewModel.checkData(name, pswrd, s, this);
+
+
+
+    //Checking Internet Connection
+    public void connectvity() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        mProgressDialog = new ProgressDialog(LoginActivity.this);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
+            mProgressDialog.setMessage("Wait..Login....is in Process");
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+            LoginViewModel viewModel = new LoginViewModel();
+            Log.i("loginActivity in LVM", "onClick: " + mLogin);
+            viewModel.validateUserLogin(mName, mPswrd, mLogin, this);
+
+        } else {
+            mProgressDialog.dismiss();
+            Toast.makeText(LoginActivity.this, "Check Connection...", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
-    //Getting the data back from View model through getLoginDat method from TokenableInterface  interface
+    //Getting the data back from View model through loginResponse method from ILoginCallback  interface
     @Override
-    public void getLoginData(LoginModel loginData) {
+    public void loginResponse(LoginModel loginData, int statuscode) {
+        String message = null;
+        String token = null;
+
         mProgressDialog.dismiss();
+        if(loginData != null) {
+            message  = loginData.getMessage();
+            token = loginData.getToken();
 
+            Log.i("LoginStatusCode", "dataValidation: " + statuscode);
+        }
+        if(statuscode == 0) {
+            mProgressDialog.dismiss();
+            Toast.makeText(LoginActivity.this, "Bad Network... :(", Toast.LENGTH_SHORT).show();
+        }
 
-        String message = loginData.getMessage();
-        String token = loginData.getToken();
-        int status = loginData.getStatus();
-
-        if (status == 200) {
+        if (statuscode == 200) {
             Long timeStamp = System.currentTimeMillis();
             mTimeMill = timeStamp.toString();
             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -95,8 +134,9 @@ public class LoginActivity extends AppCompatActivity implements TokenableInterfa
             mSharedPreferences = getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putString("token", token);
+            Log.i("login", "loginResponse: " + token);
             editor.commit();
-            Intent intent = new Intent(LoginActivity.this, DashBoard.class);
+            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
             startActivity(intent);
 
 
@@ -104,9 +144,7 @@ public class LoginActivity extends AppCompatActivity implements TokenableInterfa
             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 
         }
-
     }
-
 }
 
 
