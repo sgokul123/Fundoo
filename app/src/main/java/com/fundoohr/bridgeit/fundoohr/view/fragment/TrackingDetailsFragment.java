@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.TrackingDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.TrackingDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.utility.ProgressUtil;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.TrackingDetailViewModel;
 import com.loopj.android.http.RequestParams;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  * It is The Activity Which Need To Be Included In Manifest.xml File.
  **/
 public class TrackingDetailsFragment extends Fragment implements TrackingDetailArrayInterface {
-    ProgressDialog mDailog;
+    ProgressUtil prog;
     Button mSave,mCancel;
     String mTrack_url;
     ImageButton mEditbutton;
@@ -51,6 +52,7 @@ public class TrackingDetailsFragment extends Fragment implements TrackingDetailA
         mEditText3 = (EditText) view.findViewById(R.id.track_currweek);
         mEditText4 = (EditText) view.findViewById(R.id.track_weekleft);
         mEditText5 = (EditText) view.findViewById(R.id.track_week1);
+
 
         mEditText.setFocusable(false); //to disable it
         mEditText1.setFocusable(false);
@@ -86,8 +88,8 @@ public class TrackingDetailsFragment extends Fragment implements TrackingDetailA
         mTrack_url=getResources().getString(R.string.Tracking_url);
         TrackingDetailViewModel trackViewModel = new TrackingDetailViewModel();
         trackViewModel.trackingData(token,mTrack_url,requestParams, this);
-        mDailog.setMessage("Loading...");
-        mDailog.show();
+        prog = new ProgressUtil(getActivity());
+        prog.showProgress("Loading...");
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +118,7 @@ public class TrackingDetailsFragment extends Fragment implements TrackingDetailA
 
     @Override
     public void trackingData(ArrayList<TrackingDetailsModel> trackingDetailsModels) {
-        mDailog.dismiss();
+        prog.dismissProgress();
         TrackingDetailsModel trackingModel = trackingDetailsModels.get(0);
         mEditText.setText(trackingModel.getTechStack());
         mEditText1.setText(trackingModel.getBridgelabzStartDate());

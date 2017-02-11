@@ -24,7 +24,7 @@ import cz.msebera.android.httpclient.Header;
 public class HRController {
     public void getHRControllerData(String token, String mHR_url, RequestParams requestParams, final HRDetailBInterface hrDetailBInterface){
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.addHeader("x-toke",token);
+        asyncHttpClient.addHeader("x-token",token);
         asyncHttpClient.get(mHR_url, requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

@@ -45,8 +45,9 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
     public MonthYearPickerDialog(){
     }
 
-    public void setListener(Context context, DatePickerDialog.OnDateSetListener listener, GridView calendarView) {
+    public void setListener(Context context, DatePickerDialog.OnDateSetListener listener, GridView calendarView, String mEngeerId) {
         this.listener = listener;
+        this.ValueId=mEngeerId;
         this.mContext = context;
         this.gridView = calendarView;
     }
@@ -83,8 +84,6 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
-
                         //Creating the TimeStamp by converting the day picked on the MonthPicker
                         int day, second, minute, hour;
                         long epoch=0;
@@ -95,7 +94,7 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
                         minute = calendar.get(Calendar.MINUTE);
                         hour = calendar.get(Calendar.HOUR);
 
-                        String ValueId="40001EI";
+                       // String ValueId="40001EI";
 
                         try {
                             epoch = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
@@ -127,16 +126,11 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
 
                             }
                         });*/
-
-
-                        Intent intent = new Intent(mContext, AttendanceDetailsActivity.class);
+                       /* Intent intent = new Intent(mContext, AttendanceDetailsActivity.class);
                         intent.putExtra("timeStamp", epoch);
                         intent.putExtra("month", monthPicker.getValue());
                         intent.putExtra("year", yearPicker.getValue());
-                        startActivity(intent);
-
-
-
+                        startActivity(intent)*/;
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -155,8 +149,6 @@ public class MonthYearPickerDialog extends DialogFragment implements AttendenceA
         Log.i("newInsta", "newInstance: "+bundle);
         return month;
     }*/
-
-
     @Override
     public void getAttendArrayData(ArrayList<AttendenceModel> attendenceModels) {
         ArrayList<AttendenceModel> modelArrayList = attendenceModels;

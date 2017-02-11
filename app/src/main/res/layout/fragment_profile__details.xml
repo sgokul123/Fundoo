@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_diploma"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_degree"
-            android:ems="10"/>
+            android:ems="9"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_disciplane"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_yop"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_aggregate"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_final_year"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_training_institute"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_training_duration"
-            android:ems="10"/>
+            android:ems="9"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profile_training"
-            android:ems="10"/>
+            android:ems="9"/>
     </RelativeLayout>
     <Button
         android:text="Save"

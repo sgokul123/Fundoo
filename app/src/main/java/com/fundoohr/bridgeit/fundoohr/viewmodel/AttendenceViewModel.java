@@ -49,8 +49,6 @@ public class AttendenceViewModel {
         attendenceController.getAttendenceData(URL,tokenValue, params, new AttendenceBInterface() {
             @Override
             public void getAttendBData(byte[] bytes) {
-
-
                 try {
                     JSONObject jsonObject = new JSONObject(new String(bytes));
                     Log.i("json data attendance", "getAttendBData: "+jsonObject.toString());
@@ -78,7 +76,6 @@ public class AttendenceViewModel {
                         Log.i("Att..", "getAttendBData: "+jsonChild1.getString("attendanceStatus"));
                         attendenceModels.add(attendM);
                     }
-
                     attendenceArrayInterface.getAttendArrayData(attendenceModels);
                     Log.i("attendViewModel", "getAttendBData: " + attendenceModels.size());
                 } catch (JSONException e) {

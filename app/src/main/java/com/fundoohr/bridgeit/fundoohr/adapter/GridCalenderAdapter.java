@@ -136,7 +136,7 @@ public class GridCalenderAdapter extends BaseAdapter {
             row = inflater.inflate(R.layout.custom_grid_calender, parent, false);
         }
         //Data from view class to adtapter
-      //  AttendenceModel model = attendenceModels.get(position);
+         AttendenceModel model = attendenceModels.get(position);
         // Get a reference to the Day gridcell
         gridcell = (TextView) row.findViewById(R.id.calendar_day_gridcell);
         textMark = (ImageView) row.findViewById(R.id.text_mark);
@@ -152,7 +152,7 @@ public class GridCalenderAdapter extends BaseAdapter {
         // Set the Day GridCell
         gridcell.setText(theday);
 
-        /*if (!theday.equals(" ") && model.getAttendenceStatus().equalsIgnoreCase("Present")) {
+        if (!theday.equals(" ") && model.getAttendenceStatus().equalsIgnoreCase("Present")) {
             textMark.setImageResource(R.drawable.checkmark);
         }
         else if(!theday.equals(" ") && model.getAttendenceStatus().equalsIgnoreCase("Leave")) {
@@ -160,8 +160,7 @@ public class GridCalenderAdapter extends BaseAdapter {
         }
         else {
             textMark.setImageResource(R.drawable.coleave);
-        }*/
-
+        }
 
         gridcell.setTag(theday + "-" + themonth + "-" + theyear);
 

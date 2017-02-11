@@ -28,14 +28,6 @@ import java.util.Collections;
         */
 
 public class EnggFragViewModel {
-    Context mContext;
-    ProgressDialog mDailog;
-
-    public EnggFragViewModel(Context mContext, ProgressDialog mDailog) {
-        this.mContext = mContext;
-        this.mDailog = mDailog;
-    }
-
     public void employeeList(String mEngineer_data, String tokenHeader, final EnggViewModelInterface enggViewModelInterface) {
         final ArrayList<EnggFragModel> enggArrayList = new ArrayList<>();
         Log.i("EnggViewModel", "employeeList:Data is Available here ");
@@ -62,6 +54,7 @@ public class EnggFragViewModel {
                                 //Through the object of model Class the obtained data is set to the
                                 //Model class
                                 EnggFragModel enggFragModel = new EnggFragModel();
+
                                 enggFragModel.setImageurl(childObject.getString("imageUrl"));
                                 Log.i("image", "employeeData: "+childObject.getString("imageUrl"));
                                 enggFragModel.setEmployeeName(childObject.getString("employeeName"));
@@ -75,14 +68,14 @@ public class EnggFragViewModel {
                             }
                             enggViewModelInterface.enggViewMInterface(enggArrayList);
                             Log.i("Employee", "employeeList: " + enggArrayList);
-
                         }
+
                     }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 Log.i("Employee", "employeeList: ");
 
             }

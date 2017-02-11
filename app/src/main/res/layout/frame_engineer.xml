@@ -50,7 +50,7 @@
 </LinearLayout>
     <com.fundoohr.bridgeit.fundoohr.utility.SideBarEngineer
             android:id = "@+id/sideBar"
-        android:layout_marginTop="50dp"
+            android:layout_marginTop="50dp"
             android:layout_height="match_parent"
             android:layout_width="44px"
             android:layout_alignParentRight="true"

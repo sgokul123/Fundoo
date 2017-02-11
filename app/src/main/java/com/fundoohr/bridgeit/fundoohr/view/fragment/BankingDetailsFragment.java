@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.BankingDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.BankingDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.utility.ProgressUtil;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.BankingViewModel;
 import com.loopj.android.http.RequestParams;
 
@@ -38,6 +39,7 @@ public class BankingDetailsFragment extends Fragment implements BankingDetailArr
     ImageButton mImageButton;
     SharedPreferences mSharedPreferences;
     EditText mBankAccNo, mBankBankname, mBankIFSC, mBankPan, mBankPay, mBankReason;
+    ProgressUtil prog;
 
     @Nullable
     @Override
@@ -85,9 +87,11 @@ public class BankingDetailsFragment extends Fragment implements BankingDetailArr
 
         BankingViewModel bankViewModel = new BankingViewModel();
         bankViewModel.bankDataList(token, mBankurl,requestParams,this);
-        mProgressDialog= new ProgressDialog(getActivity());
+        prog = new ProgressUtil(getActivity());
+        prog.showProgress("Loading...");
+       /* mProgressDialog= new ProgressDialog(getActivity());
         mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
+        mProgressDialog.show();*/
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +110,13 @@ public class BankingDetailsFragment extends Fragment implements BankingDetailArr
             public void onClick(View view) {
                 mCancel.setVisibility(View.INVISIBLE);
                 mSave.setVisibility(View.INVISIBLE);
+                mBankAccNo.setFocusableInTouchMode(false);
+                mBankBankname.setFocusableInTouchMode(false);
+                mBankIFSC.setFocusableInTouchMode(false);
+                mBankPan.setFocusableInTouchMode(false);
+                mBankPay.setFocusableInTouchMode(false);
+                mBankReason.setFocusableInTouchMode(false);
+
             }
         });
 
@@ -114,8 +125,7 @@ public class BankingDetailsFragment extends Fragment implements BankingDetailArr
 
     @Override
     public void bankArrayData(ArrayList<BankingDetailsModel> bankingDModel) {
-        mProgressDialog.dismiss();
-
+        prog.dismissProgress();
         BankingDetailsModel bankingDetailsModel = bankingDModel.get(0);
         Log.i("BankView", "bankArrayData: "+bankingDetailsModel.getAccountNumber());
         mBankAccNo.setText(bankingDetailsModel.getAccountNumber());

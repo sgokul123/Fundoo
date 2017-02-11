@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:id="@+id/bank_AccNo"
-            android:ems="10"/>
+            android:ems="8"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bank_bankname"
-            android:ems="10"/>
+            android:ems="8"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bank_ifsc"
-            android:ems="10"/>
+            android:ems="8"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bank_pan"
-            android:ems="10"/>
+            android:ems="8"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bank_pay_salary"
-            android:ems="10"/>
+            android:ems="8"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:id="@+id/bank_reason"
-            android:ems="10"/>
+            android:ems="8"/>
         <Button
             android:text="Save"
             android:id="@+id/save"

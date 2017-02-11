@@ -28,18 +28,23 @@ import com.fundoohr.bridgeit.fundoohr.view.fragment.EngineerFragment;
 
 public class DashBoardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar mtoolbar;
+    Toolbar mToolbar;
     ProgressDialog mDailog;
     CardView cardView;
     EngineerFragment enggFrag;
+
+    public DashBoardActivity() {
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        mtoolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         enggFrag = new EngineerFragment(this);
-        mtoolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.toolcolor));
-        setSupportActionBar(mtoolbar);
+        mToolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.toolcolor));
+        setSupportActionBar(mToolbar);
 
         cardView= (CardView) findViewById(R.id.engineers);
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +56,7 @@ public class DashBoardActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mtoolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -77,26 +82,23 @@ public class DashBoardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            mtoolbar.setTitle(item.getTitle().toString());
+            mToolbar.setTitle(item.getTitle().toString());
             Intent intent = new Intent(DashBoardActivity.this,DashBoardActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_engineer) {
-            mtoolbar.setTitle(item.getTitle().toString());
-            mDailog= new ProgressDialog(DashBoardActivity.this);
-            mDailog.setMessage("Loading....");
-            mDailog.show();
+            mToolbar.setTitle(item.getTitle().toString());
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_engineer,enggFrag).commit();
         } else if (id == R.id.nav_attend) {
-            mtoolbar.setTitle(item.getTitle().toString());
+            mToolbar.setTitle(item.getTitle().toString());
 
         } else if (id == R.id.nav_report) {
-            mtoolbar.setTitle(item.getTitle().toString());
+            mToolbar.setTitle(item.getTitle().toString());
         } else if (id == R.id.nav_logout) {
-            mtoolbar.setTitle(item.getTitle().toString());
+            mToolbar.setTitle(item.getTitle().toString());
             Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_clients) {
-            mtoolbar.setTitle(item.getTitle().toString());
+            mToolbar.setTitle(item.getTitle().toString());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

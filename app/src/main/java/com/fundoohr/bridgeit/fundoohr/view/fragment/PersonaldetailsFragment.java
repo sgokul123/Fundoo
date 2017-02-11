@@ -20,11 +20,13 @@ import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.PersonalDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.PersonalDetailsModel;
 import com.fundoohr.bridgeit.fundoohr.model.UpdatePersonalModel;
+import com.fundoohr.bridgeit.fundoohr.utility.ProgressUtil;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.PersonalDetailViewModel;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.UpdatePersonalViewMOdel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
+
 /**
  * * Purpose:
  * It Is The View Of MVVM Design Pattern.
@@ -37,14 +39,14 @@ import java.util.ArrayList;
 
 @SuppressLint("ValidFragment")
 public class PersonaldetailsFragment extends Fragment implements PersonalDetailArrayInterface {
+    ProgressUtil prog;
     Button mSave, mCancel;
     String enggID;
     String mPersonal_url;
     ImageButton mImageButton;
     ProgressDialog mProgressDialog;
     SharedPreferences mSharedPreferences;
-    EditText mId,mEmail,mMobile,mDOB,mFathername,mFathetmob,mOccupation,mAnnualsalary,mMumAdd,mPermanentAdd;
-
+    EditText mId, mEmail, mMobile, mDOB, mFathername, mFathetmob, mOccupation, mAnnualsalary, mMumAdd, mPermanentAdd;
 
 
     @Nullable
@@ -52,20 +54,20 @@ public class PersonaldetailsFragment extends Fragment implements PersonalDetailA
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view=inflater.inflate(R.layout.fragment_personal_details,container,false);
-        mSave= (Button) view.findViewById(R.id.save);
+        View view = inflater.inflate(R.layout.fragment_personal_details, container, false);
+        mSave = (Button) view.findViewById(R.id.save);
         mCancel = (Button) view.findViewById(R.id.cancel);
-        mImageButton= (ImageButton) view.findViewById(R.id.personal_edit);
-        mId= (EditText) view.findViewById(R.id.personal_id);
-        mEmail= (EditText) view.findViewById(R.id.personal_email);
-        mMobile= (EditText) view.findViewById(R.id.personal_mobile);
-        mDOB= (EditText) view.findViewById(R.id.personal_dob);
-        mFathername= (EditText) view.findViewById(R.id.personal_father);
-        mFathetmob= (EditText) view.findViewById(R.id.personal_father_mobile);
-        mOccupation= (EditText) view.findViewById(R.id.personal_occup);
-        mAnnualsalary= (EditText) view.findViewById(R.id.personal_anual);
-        mMumAdd= (EditText) view.findViewById(R.id.personal_mumbaiadd);
-        mPermanentAdd= (EditText) view.findViewById(R.id.personal_peradd);
+        mImageButton = (ImageButton) view.findViewById(R.id.personal_edit);
+        mId = (EditText) view.findViewById(R.id.personal_id);
+        mEmail = (EditText) view.findViewById(R.id.personal_email);
+        mMobile = (EditText) view.findViewById(R.id.personal_mobile);
+        mDOB = (EditText) view.findViewById(R.id.personal_dob);
+        mFathername = (EditText) view.findViewById(R.id.personal_father);
+        mFathetmob = (EditText) view.findViewById(R.id.personal_father_mobile);
+        mOccupation = (EditText) view.findViewById(R.id.personal_occup);
+        mAnnualsalary = (EditText) view.findViewById(R.id.personal_anual);
+        mMumAdd = (EditText) view.findViewById(R.id.personal_mumbaiadd);
+        mPermanentAdd = (EditText) view.findViewById(R.id.personal_peradd);
 
         mId.setFocusable(false);
         mEmail.setFocusable(false);
@@ -99,27 +101,26 @@ public class PersonaldetailsFragment extends Fragment implements PersonalDetailA
         });
 
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
-        final String token=mSharedPreferences.getString("token",null);
+        final String token = mSharedPreferences.getString("token", null);
         enggID = getArguments().getString("id");
         for (int i = 0; i < enggID.length(); i++) {
-            Log.i("enggID", "onCreateView: "+ enggID);
+            Log.i("enggID", "onCreateView: " + enggID);
         }
 
-        mPersonal_url=getResources().getString(R.string.Personal_url);
+        mPersonal_url = getResources().getString(R.string.Personal_url);
 
         RequestParams requestParams = new RequestParams();
         requestParams.put("engineerId", enggID);
-        Log.i("Pd", "onCreateView: engid"+ enggID);
+        Log.i("Pd", "onCreateView: engid" + enggID);
 
-        Toast.makeText(getActivity(), "gettting id"+ enggID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "gettting id" + enggID, Toast.LENGTH_SHORT).show();
         //Sending the token in header and with all the required feilds to th ViewModel
-        PersonalDetailViewModel personalDetailVModel= new PersonalDetailViewModel();
-        personalDetailVModel.personalData(token,mPersonal_url,requestParams,this);
+        PersonalDetailViewModel personalDetailVModel = new PersonalDetailViewModel();
+        personalDetailVModel.personalData(token, mPersonal_url, requestParams, this);
 
-        mProgressDialog= new ProgressDialog(getActivity());
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
-        Log.i("Pd", "onCreateView: token"+token);
+        prog = new ProgressUtil(getActivity());
+        prog.showProgress("Loading...");
+        Log.i("Pd", "onCreateView: token" + token);
 
         return view;
 
@@ -128,13 +129,13 @@ public class PersonaldetailsFragment extends Fragment implements PersonalDetailA
     @Override
     public void personalArrayListDetail(ArrayList<PersonalDetailsModel> personalDetailsModels) {
 
-        mProgressDialog.dismiss();
+        prog.dismissProgress();
         PersonalDetailsModel personalModel = personalDetailsModels.get(0);
-        Log.i("personalView", "personalArrayListDetail: "+personalModel.getAnnualSalary());
+        Log.i("personalView", "personalArrayListDetail: " + personalModel.getAnnualSalary());
         //Setting the data to View
 
         mId.setText(personalModel.getEngineerId());
-        Log.i("setText", "personalArrayListDetail: "+personalModel.getEngineerId());
+        Log.i("setText", "personalArrayListDetail: " + personalModel.getEngineerId());
         mEmail.setText(personalModel.getEmailId());
         mMobile.setText(personalModel.getMobile());
         mDOB.setText(personalModel.getDateOfBirth());
@@ -164,31 +165,30 @@ public class PersonaldetailsFragment extends Fragment implements PersonalDetailA
             public void onClick(View view) {
 
                 mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
-                String Updatetoken=mSharedPreferences.getString("token",null);
-                Log.i("UpdatePersonalViewMOdel", "onClick    shared: "+Updatetoken);
+                String Updatetoken = mSharedPreferences.getString("token", null);
+                Log.i("UpdatePersonalViewMOdel", "onClick    shared: " + Updatetoken);
 
                 RequestParams praParams = new RequestParams();
                  /* praParams.put("token","'jvbudvhdgd");*/
-                praParams.put("engineerId",mId.getText().toString());
-                praParams.put("emailId",mEmail.getText().toString());
-                praParams.put("mobile",mMobile.getText().toString());
-                Log.i("mobile", "onClick: "+mId.getText().toString());
-                praParams.put("dateOfBirth",mDOB.getText().toString());
-                praParams.put("fatherName",mFathername.getText().toString());
-                praParams.put("fatherMobile",mFathetmob.getText().toString());
-                praParams.put("occupation",mOccupation.getText().toString());
-                praParams.put("annualSalary",mAnnualsalary.getText().toString());
-                praParams.put("mumbaiAddress",mMumAdd.getText().toString());
-                praParams.put("permanentAddress",mPermanentAdd.getText().toString());
-
+                praParams.put("engineerId", mId.getText().toString());
+                praParams.put("emailId", mEmail.getText().toString());
+                praParams.put("mobile", mMobile.getText().toString());
+                Log.i("mobile", "onClick: " + mId.getText().toString());
+                praParams.put("dateOfBirth", mDOB.getText().toString());
+                praParams.put("fatherName", mFathername.getText().toString());
+                praParams.put("fatherMobile", mFathetmob.getText().toString());
+                praParams.put("occupation", mOccupation.getText().toString());
+                praParams.put("annualSalary", mAnnualsalary.getText().toString());
+                praParams.put("mumbaiAddress", mMumAdd.getText().toString());
+                praParams.put("permanentAddress", mPermanentAdd.getText().toString());
 
 
                 //Updating the edited data for that we need to create the updateviewmodelController
                 //object
                 UpdatePersonalViewMOdel updatePersonalViewMOdel = new UpdatePersonalViewMOdel();
-                updatePersonalViewMOdel.updatePersonData(Updatetoken,praParams, PersonaldetailsFragment.this);
-                Log.i("UpdatePersonalViewMOdel", "onClick: "+Updatetoken);
-                Log.i("UpdatePersonalViewMOdel", "onClick: "+praParams);
+                updatePersonalViewMOdel.updatePersonData(Updatetoken, praParams, PersonaldetailsFragment.this);
+                Log.i("UpdatePersonalViewMOdel", "onClick: " + Updatetoken);
+                Log.i("UpdatePersonalViewMOdel", "onClick: " + praParams);
 
 
             }

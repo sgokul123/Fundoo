@@ -51,7 +51,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginCallback {
         setContentView(R.layout.activity_login);
 
         mUsername = (EditText) findViewById(R.id.email);
+        mUsername.setText("admin@bridgelabz.com");
         mPassword = (EditText) findViewById(R.id.password);
+        mPassword.setText("Bridge@123");
         mClick = (Button) findViewById(R.id.login);
 
         mClick.setOnClickListener(new View.OnClickListener() {
@@ -72,12 +74,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginCallback {
 
                 if (!mName.equals("") && !mPswrd.equals("") && userMatch && mPswrd.length() > 5) {
                     // passingData(mName, mPswrd, mLogin);
-                    connectvity();
+                    internetConnectvity();
 
                 } else {
                     Toast.makeText(LoginActivity.this, "Enter the Correct UserName & Password", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -85,10 +86,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginCallback {
     }
 
 
-
-
     //Checking Internet Connection
-    public void connectvity() {
+    public void internetConnectvity() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mProgressDialog = new ProgressDialog(LoginActivity.this);
@@ -115,13 +114,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginCallback {
         String token = null;
 
         mProgressDialog.dismiss();
-        if(loginData != null) {
-            message  = loginData.getMessage();
+        if (loginData != null) {
+            message = loginData.getMessage();
             token = loginData.getToken();
 
             Log.i("LoginStatusCode", "dataValidation: " + statuscode);
         }
-        if(statuscode == 0) {
+        if (statuscode == 0) {
             mProgressDialog.dismiss();
             Toast.makeText(LoginActivity.this, "Bad Network... :(", Toast.LENGTH_SHORT).show();
         }

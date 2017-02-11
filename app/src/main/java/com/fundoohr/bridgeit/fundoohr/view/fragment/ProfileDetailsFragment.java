@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.ProfileDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.ProfileDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.utility.ProgressUtil;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.ProfileDetailViewModel;
 import com.loopj.android.http.RequestParams;
 
@@ -33,7 +34,7 @@ import java.util.ArrayList;
  **/
 
 public class ProfileDetailsFragment extends Fragment implements ProfileDetailArrayInterface {
-    ProgressDialog mDailog;
+    ProgressUtil prog;
     Button mSave,mCancel;
     String mProfile_url;
     ImageButton mImageButton;
@@ -102,15 +103,16 @@ public class ProfileDetailsFragment extends Fragment implements ProfileDetailArr
 
         ProfileDetailViewModel profileDetailViewModel = new ProfileDetailViewModel();
         profileDetailViewModel.profileData(token,mProfile_url,requestParams,this);
-        mDailog = new ProgressDialog(getActivity());
-        mDailog.setMessage("Loading....");
-        mDailog.show();
+        prog = new ProgressUtil(getActivity());
+        prog.showProgress("Loading...");
+
+
         return view;
     }
 
     @Override
     public void profileArraylistData(ArrayList<ProfileDetailsModel> profileDMOdel) {
-        mDailog.dismiss();
+        prog.dismissProgress();
         ProfileDetailsModel getDetailsModel = profileDMOdel.get(0);
         Log.i("profView", "profileArraylistData: "+getDetailsModel.getDiploma());
         //Setting the data to View
@@ -123,5 +125,13 @@ public class ProfileDetailsFragment extends Fragment implements ProfileDetailArr
         mProfile_training_institute.setText(getDetailsModel.getTrainingInstitute());
         mProfile_training_duration.setText(getDetailsModel.getTrainingDuration());
         mProfile_training.setText(getDetailsModel.getTraining());
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCancel.setVisibility(View.INVISIBLE);
+                mSave.setVisibility(View.INVISIBLE);
+            }
+        });
     }
+
 }

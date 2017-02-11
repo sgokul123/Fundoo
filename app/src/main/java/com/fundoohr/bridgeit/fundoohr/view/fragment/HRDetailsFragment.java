@@ -17,13 +17,14 @@ import android.widget.ImageButton;
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.callback.HRDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.model.HRDetailsModel;
+import com.fundoohr.bridgeit.fundoohr.utility.ProgressUtil;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.HRDetailViewModel;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
 public class HRDetailsFragment extends Fragment implements HRDetailArrayInterface {
-    ProgressDialog mProgressDialog;
+    ProgressUtil prog;
     Button mSave,mCancel;
     String mHR_url;
     SharedPreferences mSharedPreferences;
@@ -124,13 +125,13 @@ public class HRDetailsFragment extends Fragment implements HRDetailArrayInterfac
         Log.i("HR", "onCreateView: token" + token);
         Log.i("HR", "onCreateView: token" + engineerId);
         mHR_url= getResources().getString(R.string.HR_url);
-
-
+        prog = new ProgressUtil(getActivity());
+        prog.showProgress("Loading..");
         HRDetailViewModel hrViewModel = new HRDetailViewModel();
         hrViewModel.hrDataList(token,mHR_url,requestParams, this);
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.show();
+        Log.i("HR", "onCreateView: token" + token);
+        Log.i("HR", "onCreateView: token" + requestParams);
+
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +154,7 @@ public class HRDetailsFragment extends Fragment implements HRDetailArrayInterfac
 
     @Override
     public void hrDetailData(ArrayList<HRDetailsModel> hrDetailModels) {
-        mProgressDialog.dismiss();
+      ; prog.dismissProgress();
         HRDetailsModel modelHR = hrDetailModels.get(0);
 
         mBlstart.setText(modelHR.getBlStartDate());

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 
+import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
+
 /**
  * Created by bridgeit on 10/12/16.
  */
@@ -18,6 +20,7 @@ public class SideBarEngineer extends View {
     private SectionIndexer sectionIndexter = null;
     private ListView list;
     private final int m_nItemHeight = 48;
+    private EnggViewModelInterface enggViewModelInterface;
 
     public SideBarEngineer(Context context) {
         super(context);
@@ -57,16 +60,25 @@ public class SideBarEngineer extends View {
         }
         // sectionIndexter is used for the fast scroll or the scroll touch
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-            if (sectionIndexter == null) {
-               sectionIndexter = (SectionIndexer) list.getAdapter();
+            try {
+                if (sectionIndexter == null) {
+                    sectionIndexter = (SectionIndexer) list.getAdapter();
+                }
+                int position = sectionIndexter.getPositionForSection(l[idx]);
+                if (position == -1) {
+                    return true;
+                }
+                list.setSelection(position);
+            }catch (Exception e){
+
             }
-            int position = sectionIndexter.getPositionForSection(l[idx]);
-            if (position == -1) {
-                return true;
-            }
-           list.setSelection(position);
+
         }
         return true;
+    }
+
+    public void setCustomTouchListener(EnggViewModelInterface enggViewModelInterface){
+        this.enggViewModelInterface = enggViewModelInterface;
     }
     //the use of onDraw using canvas is to give color to the alphabets used in side bar and its size
     protected void onDraw(Canvas canvas) {

@@ -2,9 +2,7 @@ package com.fundoohr.bridgeit.fundoohr.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,27 +11,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import com.fundoohr.bridgeit.fundoohr.R;
 import com.fundoohr.bridgeit.fundoohr.adapter.EngineerSideBarAdapter;
 
 
+import com.fundoohr.bridgeit.fundoohr.adapter.MySearchAdapter;
 import com.fundoohr.bridgeit.fundoohr.callback.EnggViewModelInterface;
 import com.fundoohr.bridgeit.fundoohr.model.EnggFragModel;
 import com.fundoohr.bridgeit.fundoohr.utility.SideBarEngineer;
 import com.fundoohr.bridgeit.fundoohr.viewmodel.EnggFragViewModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,15 +46,16 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
     String mEngineer_url;
     //String arr[] = new String[35];
     List<String> arr=new ArrayList<>();
-    List<String> arrCopy=new ArrayList<>();
+    // List<String> arrCopy=new ArrayList<>();
 
     ListView mListview;
     Context mContext;
     EditText mSearch;
     ProgressDialog mDailog;
     SharedPreferences mSharedPreferences;
-    ArrayAdapter<String> adapter2;
+    MySearchAdapter adapter2;
     String searchName;
+    SideBarEngineer indexBar;
 
     ArrayList<String> strings;
 
@@ -82,8 +77,7 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
         mSearch = (EditText) view.findViewById(R.id.searchBox);
 
 
-        SideBarEngineer indexBar = (SideBarEngineer) view.findViewById(R.id.sideBar);
-        indexBar.setListView(mListview);
+        indexBar = (SideBarEngineer) view.findViewById(R.id.sideBar);
 
 
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
@@ -92,11 +86,9 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
         Log.i("EngineerFragment", "employeeList: token = " + tokenHeader);
 
         //Passing the parameters to ViewModel
-        EnggFragViewModel enggFragViewModel = new EnggFragViewModel(mContext, mDailog);
+        EnggFragViewModel enggFragViewModel = new EnggFragViewModel();
         enggFragViewModel.employeeList(mEngineer_url, tokenHeader, this);
-
-
-        mDailog= new ProgressDialog(getActivity());
+        mDailog = new ProgressDialog(getActivity());
         mDailog.setMessage("Loading....");
         mDailog.show();
         return view;
@@ -106,20 +98,9 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
     //Getting back the data from the controller through the interface
     @Override
     public void enggViewMInterface(ArrayList<EnggFragModel> enggFragModels) {
-
-        if (mDailog != null) {
-            mDailog.dismiss();
-        }
-
+        mDailog.dismiss();
         Log.i("EnggVIew", "enggViewMInterface: " + enggFragModels.get(8).getEmployeeName());
         Log.i("EnggVIew", "enggViewMInterface:id " + enggFragModels.get(3).getEngineerID());
-        ArrayList<String> sortList = new ArrayList<>();
-        for (int i = 0; i <enggFragModels.size() ; i++) {
-            String name = enggFragModels.get(i).getEmployeeName();
-            sortList.add(name);
-        }
-        Collections.sort(sortList);
-        Log.i("sorting", "enggViewMInterface: "+sortList);
 
         for (int i = 0; i < enggFragModels.size() - 1; i++) {
             searchName = enggFragModels.get(i).getEmployeeName();
@@ -128,7 +109,7 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
             strings = new ArrayList<>();
             strings.add(searchName);
             arr.add(searchName);
-            arrCopy.add(searchName);
+           // arrCopy.add(searchName);
         }
             /*Bundle bundle = new Bundle();
             bundle.putStringArray("array",arr);
@@ -142,8 +123,16 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
             Log.i("arr", "enggViewMInterface: " + arr[j]);
         }*/
 
-        adapter2 = new ArrayAdapter<String>(getActivity(), R.layout.frame_engineer,R.id.name_engineer, arr);
-        adapter2.notifyDataSetChanged();
+        //sending the data to set on the CardView to EngineerSideBarAdapter
+        EngineerSideBarAdapter adapter = new EngineerSideBarAdapter(enggFragModels, getActivity(), (ArrayList<String>) arr);
+        mListview.setAdapter(adapter);
+
+        indexBar.setListView(mListview);
+        indexBar.setCustomTouchListener(this);
+
+        adapter2 = new MySearchAdapter(mContext, enggFragModels);
+
+        //adapter2.notifyDataSetChanged();
 
         mListview.setAdapter(adapter2);
         mSearch.addTextChangedListener(new TextWatcher() {
@@ -153,9 +142,12 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //adapter2.getFilter().filter(charSequence);
+                Filter filter = adapter2.getFilter();
+                filter.filter(charSequence);
 
-                if(charSequence.length()==0){
+
+
+               /* if(charSequence.length()==0){
                     adapter2.getFilter().filter(charSequence);
                     //when search field is empty display full list
                     arr.clear();
@@ -165,30 +157,38 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
                     //When arr list is updated call notifyDataSetChanged to update listview
                     adapter2.notifyDataSetChanged();
                 }else{
-                    filterArrayList(charSequence.toString());
+                   *//* filterArrayList(charSequence.toString());*//*
                     //When arr list is updated call notifyDataSetChanged to update listview
                     adapter2.notifyDataSetChanged();
-                }
+                }*/
 
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                //adapter2.notifyDataSetChanged();
             }
         });
 
-        //sending the data to set on the CardView to EngineerSideBarAdapter
-        EngineerSideBarAdapter adapter = new EngineerSideBarAdapter(enggFragModels, getActivity(),sortList);
-        mListview.setAdapter(adapter);
+
+
        /* MySearchAdapter searchBox = new MySearchAdapter(mContext, enggFragModels);
         mListview.setAdapter(searchBox);*/
 
     }
 
+    @Override
+    public void getCharClicked(int position, char c) {
+        Filter filter = adapter2.getFilter();
+        filter.filter(String.valueOf(c));
+    }
 
 
-    //This method used to filter list according to the search key word
+
+
+
+   /* //This method used to filter list according to the search key word
     private void filterArrayList(String  searchKeyWord) {
         arr.clear();
         for (String curVal : arrCopy){
@@ -198,4 +198,4 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
         }
 
     }
-}
+*/}

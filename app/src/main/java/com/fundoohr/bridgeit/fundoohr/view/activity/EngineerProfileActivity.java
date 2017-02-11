@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 /**
  * Created by bridgeit on 17/12/16.
- * /**
+ * **
  * * Purpose:
  * It Is The View Of MVVM Design Pattern.
  * It Is The UI Class Which Hold The UI Elements.
@@ -44,6 +45,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
     CollapsingToolbarLayout mCollapsingToolbar;
     String mEnggId;
     Bundle bundle;
+    ImageView mImageView;
 
     public EngineerProfileActivity() {
     }
@@ -57,6 +59,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.engineer_collapse);
         mId = (TextView) findViewById(R.id.id_engg);
+        mImageView = (ImageView) findViewById(R.id.expandedImage);
         mStatus = (TextView) findViewById(R.id.status_engg);
         mCompany = (TextView) findViewById(R.id.company_engg);
         mMobile = (TextView) findViewById(R.id.mobile_engg);
@@ -76,6 +79,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
         if (bundle != null) {
             mEnggId = bundle.getString("id");
             mId.setText(mEnggId);
+
             mStatus.setText(bundle.getString("status"));
             mCompany.setText(bundle.getString("company"));
             mMobile.setText(bundle.getString("mobile"));
@@ -102,6 +106,7 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
         switch (item.getItemId()) {
             case R.id.attendence:
                 Toast.makeText(getApplicationContext(), "1st selected", Toast.LENGTH_SHORT).show();
+                // callAttendence();
                 Intent intent = new Intent(EngineerProfileActivity.this, AttendanceDetailsActivity.class);
                 intent.putExtra("engineerId", mEnggId);
                 startActivity(intent);
@@ -133,6 +138,13 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
         }
 
     }
+
+  /*  public void callAttendence(){
+        bundle = getData();
+        AttendanceDetailsActivity attendfrag = new AttendanceDetailsActivity();
+        attendfrag.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.collapse_frame,attendfrag).addToBackStack(null).commit();
+    }*/
 
     public void callPersonal() {
         bundle = getData();
@@ -195,6 +207,12 @@ public class EngineerProfileActivity extends AppCompatActivity implements EnggVi
     public void enggViewMInterface(ArrayList<EnggFragModel> enggFragModels) {
         EnggFragModel enggFragModel = enggFragModels.get(0);
         Log.i("collapse", "enggViewMInterface: " + enggFragModel.getEmployeeName());
+    }
+
+    @Override
+    public void getCharClicked(int position, char c) {
+
+
     }
 }
 

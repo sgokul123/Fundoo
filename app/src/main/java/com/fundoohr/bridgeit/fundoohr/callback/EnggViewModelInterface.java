@@ -9,4 +9,5 @@ import java.util.ArrayList;
  */
 public interface EnggViewModelInterface {
     public void enggViewMInterface(ArrayList<EnggFragModel> enggFragModels);
+    public void getCharClicked(int position, char c);
 }

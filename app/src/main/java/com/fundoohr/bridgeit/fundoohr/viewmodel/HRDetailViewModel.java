@@ -1,5 +1,7 @@
 package com.fundoohr.bridgeit.fundoohr.viewmodel;
 
+import android.util.Log;
+
 import com.fundoohr.bridgeit.fundoohr.callback.HRDetailArrayInterface;
 import com.fundoohr.bridgeit.fundoohr.callback.HRDetailBInterface;
 import com.fundoohr.bridgeit.fundoohr.controller.HRController;
@@ -40,6 +42,7 @@ public class HRDetailViewModel {
                     for (int i = 0; i <jsonChildObject.length(); i++) {
                         HRDetailsModel hrModel = new HRDetailsModel();
                         hrModel.setBlStartDate(jsonChildObject.getString("blStartDate"));
+                        Log.i("hrModel", "getHrData: "+jsonChildObject.getString("blStartDate"));
                         hrModel.setCompContractInitiated(jsonChildObject.getString("compContractInitiated"));
                         hrModel.setCompContractSigned(jsonChildObject.getString("compContractSigned"));
                         hrModel.setCompanyJoinDate(jsonChildObject.getString("companyJoinDate"));
