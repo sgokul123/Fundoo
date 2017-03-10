@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#ffffff"
-    tools:context=".view.fragment.HRDetailsFragment">
+    tools:context="com.fundoohr.view.fragment.HRDetailsFragment">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -383,7 +383,7 @@
 
         <Button
             android:text="Save"
-            android:id="@+id/save"
+            android:id="@+id/save_hr_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -392,7 +392,7 @@
             android:layout_below="@+id/hr_refferal"/>
         <Button
             android:text="Cancel"
-            android:id="@+id/cancel"
+            android:id="@+id/cancel_hr_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

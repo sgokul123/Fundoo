@@ -7,7 +7,7 @@
         android:id="@+id/custom_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22 November 2016"
+       android:hint="Day Month Year"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:textSize="20dp"/>
@@ -45,9 +45,7 @@
         android:maxLines="1"
         android:layout_marginRight="50dp"
         android:background="@drawable/rectangle">
-
     </TextView>
-
     <TextView
         android:id="@+id/outtime"
         android:layout_width="wrap_content"
@@ -72,8 +70,6 @@
         android:layout_marginRight="50dp"
         android:layout_toRightOf="@id/outtime"
         android:background="@drawable/rectangle"/>
-
-
 
     <TextView
         android:id="@+id/txt_ok"

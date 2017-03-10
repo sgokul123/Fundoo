@@ -48,7 +48,7 @@
         android:orientation="horizontal">
     </ListView>
 </LinearLayout>
-    <com.fundoohr.bridgeit.fundoohr.utility.SideBarEngineer
+    <com.fundoohr.utility.SideBarEngineer
             android:id = "@+id/sideBar"
             android:layout_marginTop="50dp"
             android:layout_height="match_parent"

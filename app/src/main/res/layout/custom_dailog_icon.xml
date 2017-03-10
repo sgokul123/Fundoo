@@ -2,39 +2,78 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+
   >
 
     <ImageView
-        android:layout_width="30dp"
+        android:layout_width="40dp"
         android:layout_height="30dp"
         android:id="@+id/checkmark"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginBottom="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/checkmark"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Present"
+        android:layout_marginLeft="40dp"
+       android:layout_marginTop="40dp"
+        android:id="@+id/textcheck"
+        />
     <ImageView
-        android:layout_width="15dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_toEndOf="@id/checkmark"
         android:id="@+id/alert"
         android:background="@drawable/notattend"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/checkmark" />
+    <TextView
+        android:id="@+id/textexmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="25dp"
+        android:text="....."
+        android:layout_toRightOf="@id/textcheck"
+        />
     <ImageView
-        android:layout_width="15dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_toEndOf="@id/alert"
+        android:layout_toRightOf="@+id/alert"
+        android:layout_marginLeft="20dp"
         android:id="@+id/leave"
         android:background="@drawable/leave"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"/>
+         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Leave"
+        android:layout_marginLeft="25dp"
+        android:id="@+id/textleave"
+        android:layout_toRightOf="@+id/textexmark"/>
     <ImageView
-        android:layout_width="20dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_toEndOf="@id/leave"
         android:id="@+id/co_leave"
         android:background="@drawable/coleave"
         android:layout_marginBottom="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/leave" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textcoleave"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/textleave"
+        android:layout_marginTop="40dp"
+        android:text="CoLeave"/>
+
 </RelativeLayout>

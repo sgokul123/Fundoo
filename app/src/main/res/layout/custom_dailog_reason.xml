@@ -4,12 +4,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_date_reason"
         android:layout_centerHorizontal="true"
-        android:text="22 November 2016"/>
+        android:hint="Day Month Year"
+       />
 
     <View android:id="@+id/titleDivider"
         android:layout_width="match_parent"
@@ -22,23 +23,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reason"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
+        android:textSize="@dimen/dimen_20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/txt_reason"
         android:layout_marginLeft="50dp"
         android:layout_below="@id/titleDivider"/>
 
     <EditText
         android:id="@+id/edit_reason"
-        android:layout_marginRight="10dp"
+
         android:layout_width="285dp"
         android:layout_height="80dp"
-        android:paddingLeft="20dp"
+        android:layout_marginLeft="50dp"
         android:background="@drawable/rectangle"
-        android:layout_below="@+id/txt_reason"
-        android:layout_alignStart="@+id/txt_reason" />
+        android:layout_below="@id/txt_reason"
+        android:layout_centerHorizontal="true"
+         />
 
     <TextView
+        android:id="@+id/dialogtextreason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_reason"

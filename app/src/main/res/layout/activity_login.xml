@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#D8D1C7"
-    tools:context=".view.activity.LoginActivity"
+    tools:context="com.fundoohr.view.activity.LoginActivity"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +28,8 @@
             android:layout_height="250dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="200dp">
+            android:layout_marginTop="200dp"
+            >
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
@@ -37,21 +38,17 @@
                 android:textSize="25sp"
                 android:layout_marginLeft="120dp"/>
             <EditText
+                style="@style/edittextStyle"
                 android:layout_marginTop="85dp"
-                android:layout_marginLeft="20dp"
-                android:hint="Email"
-                android:layout_width="250dp"
+                android:hint="@string/hint_email"
                 android:backgroundTint="#3B5378"
-                android:layout_height="wrap_content"
                 android:id="@+id/email"/>
             <EditText
+                style="@style/edittextStyle"
                 android:layout_marginTop="135dp"
-                android:layout_marginLeft="20dp"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:layout_width="250dp"
                 android:backgroundTint="#3B5378"
-                android:layout_height="wrap_content"
                 android:id="@+id/password" />
             <Button
                 android:layout_marginLeft="110dp"
