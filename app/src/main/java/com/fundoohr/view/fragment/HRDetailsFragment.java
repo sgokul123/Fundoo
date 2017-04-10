@@ -44,6 +44,8 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
 */  final Calendar myCalendar = Calendar.getInstance();
     private String url;
     private  boolean isEditable=false;
+    private  String engineerId;
+    private String token;
 
     @Nullable
     @Override
@@ -91,24 +93,25 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
         mSave.setVisibility(View.INVISIBLE);
         mCancel.setVisibility(view.INVISIBLE);
 
-        mImageButton.setOnClickListener(new View.OnClickListener() {
+      /*  mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setVisibility(true);
                 isEditable=true;
-              /*  mCertificate.setFocusableInTouchMode(true);
+              *//*  mCertificate.setFocusableInTouchMode(true);
                 mCollected.setFocusableInTouchMode(true);
                 mHrcertificatesubmit.setFocusableInTouchMode(true);
                 mHrotherdocuments.setFocusableInTouchMode(true);
                 mHroriginalreturned.setFocusableInTouchMode(true);
                 mHrreturndetails.setFocusableInTouchMode(true);
                 mHrRefferal.setFocusableInTouchMode(true);
-               */ //Button to save and Cancel to Update the Data to the Server
+               *//* //Button to save and Cancel to Update the Data to the Server
                 mSave.setVisibility(View.VISIBLE);
                 mCancel.setVisibility(View.VISIBLE);
 
             }
-        });
+        });*/
+               mImageButton.setOnClickListener(this);
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -123,8 +126,8 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
 
         };
         mSharedPreferences = getActivity().getSharedPreferences("RECORDS", Context.MODE_PRIVATE);
-        final String token = mSharedPreferences.getString("token", null);
-        final String engineerId = getArguments().getString("id");
+        token = mSharedPreferences.getString("token", null);
+        engineerId= getArguments().getString("id");
         RequestParams requestParams = new RequestParams();
         requestParams.put("engineerId", engineerId);
         Log.i(TAG, "onCreateView: token" + token);
@@ -154,61 +157,23 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
         });
 
         Log.i(TAG, "onCreateView: token   " + requestParams);
-           mSave.setOnClickListener(new View.OnClickListener() {
+
+
+         mSave.setOnClickListener(this);/*new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                prog.showProgress("Updating HR Data ....");
-                RequestParams paramData =new RequestParams();
-                paramData.put(Constants.RequestParam.HIRINGCITY, mHiring.getText().toString());
-                paramData.put(Constants.RequestParam.FELLOWSHIPPERIOD,mFellowship.getText().toString());
-                paramData.put(Constants.RequestParam.BLSTARTDATE,mBlstart.getText().toString());
-                paramData.put(Constants.RequestParam.COMPANYJOINDATE,mCmpstrtdate.getText().toString());
-                paramData.put(Constants.RequestParam.COMPONYLEAVEDATE,mCmpEnddate.getText().toString());
-                paramData.put(Constants.RequestParam.ENGGCONTRACTINITIATED,mEnggContractInitiate.getText().toString());
-                paramData.put(Constants.RequestParam.ENGGCONTRACTSIGNED,mEnggContractSigned.getText().toString());
-                paramData.put(Constants.RequestParam.COMPCONTRACTINITIATED,mCompanyInitiated.getText().toString());
-                paramData.put(Constants.RequestParam.CONTRACTSIGNDATE,mContractSignDate.getText().toString());
-                paramData.put(Constants.RequestParam.INITIATETRANSFER,mInitiateTransfer.getText().toString());
-                paramData.put(Constants.RequestParam.COMPCONTRACTSIGNED,mCompSigned.getText().toString());
-                paramData.put(Constants.RequestParam.NCOMPANY,"-");
-                paramData.put(Constants.RequestParam.EMPLOYEESTATUS,mTransferStatas.getText().toString());
-                paramData.put(Constants.RequestParam.EMPLOYEEID,engineerId);
-                Log.i(TAG, "onCreateView: update" + token);
-
-                HRDetailViewModel hrModel=new HRDetailViewModel();
-                Log.i(TAG, "onCreateView: 1");
-
-                String hr_url=getResources().getString(R.string.HR_Update_url);
-                hr_url=url+hr_url;
-                hrModel.hrDataUpdate(token, hr_url, paramData,new HRDetailArrayInterface() {
-                    @Override
-                    public void hrDetailData(ArrayList<HRDetailsModel> hrDetailModels) {
-                    }
-                    @Override
-                    public void isDataUpdated(String status) {
-                        prog.dismissProgress();
-                        Log.i(TAG, "data updated..."+status);
-                        setVisibility(false);
-                        mCancel.setVisibility(View.INVISIBLE);
-                        mSave.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void closeDilog() {
-                        prog.dismissProgress();
-                    }
-                });
 
             }
-        });
-        mCancel.setOnClickListener(new View.OnClickListener() {
+        });*/
+
+        mCancel.setOnClickListener(this);/*new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setVisibility(false);
                 mCancel.setVisibility(View.INVISIBLE);
                 mSave.setVisibility(View.INVISIBLE);
             }
-        });
+        });*/
         return view;
     }
 
@@ -229,6 +194,7 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
         mInitiateTransfer.setText(modelHR.getInitiateTransfer());
         mTransferStatas.setText(modelHR.getmEmployeeStatus());
     }
+
     public  void setVisibility(Boolean state) {
         mHiring.setEnabled(state);
         mFellowship.setEnabled(state);
@@ -248,7 +214,6 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
 
         String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         mEditTextcheng.setText(sdf.format(myCalendar.getTime()));
     }
 
@@ -258,12 +223,15 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
       if(isEditable) {
+          //date picker
+
           new DatePickerDialog(getActivity(), date, myCalendar
                   .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                   myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+          //for chenge of edittext
           switch (v.getId()) {
               case R.id.hr_blstart:
-
                   mEditTextcheng = mBlstart;
                   break;
               case R.id.hr_comp_initiated:
@@ -290,11 +258,71 @@ public class HRDetailsFragment extends Fragment implements View.OnClickListener 
               case R.id.hr_companyEndDate:
                   mEditTextcheng = mCmpEnddate;
                   break;
+              case R.id.save_hr_details:
+                  prog.showProgress("Updating HR Data ....");
+                  RequestParams paramData =new RequestParams();
+                  paramData.put(Constants.RequestParam.HIRINGCITY, mHiring.getText().toString());
+                  paramData.put(Constants.RequestParam.FELLOWSHIPPERIOD,mFellowship.getText().toString());
+                  paramData.put(Constants.RequestParam.BLSTARTDATE,mBlstart.getText().toString());
+                  paramData.put(Constants.RequestParam.COMPANYJOINDATE,mCmpstrtdate.getText().toString());
+                  paramData.put(Constants.RequestParam.COMPONYLEAVEDATE,mCmpEnddate.getText().toString());
+                  paramData.put(Constants.RequestParam.ENGGCONTRACTINITIATED,mEnggContractInitiate.getText().toString());
+                  paramData.put(Constants.RequestParam.ENGGCONTRACTSIGNED,mEnggContractSigned.getText().toString());
+                  paramData.put(Constants.RequestParam.COMPCONTRACTINITIATED,mCompanyInitiated.getText().toString());
+                  paramData.put(Constants.RequestParam.CONTRACTSIGNDATE,mContractSignDate.getText().toString());
+                  paramData.put(Constants.RequestParam.INITIATETRANSFER,mInitiateTransfer.getText().toString());
+                  paramData.put(Constants.RequestParam.COMPCONTRACTSIGNED,mCompSigned.getText().toString());
+                  paramData.put(Constants.RequestParam.NCOMPANY,"-");
+                  paramData.put(Constants.RequestParam.EMPLOYEESTATUS,mTransferStatas.getText().toString());
+                  paramData.put(Constants.RequestParam.EMPLOYEEID,engineerId);
+                  Log.i(TAG, "onCreateView: update" + token);
+
+                  HRDetailViewModel hrModel=new HRDetailViewModel();
+                  Log.i(TAG, "onCreateView: 1");
+
+                  String hr_url=getResources().getString(R.string.HR_Update_url);
+                  hr_url=url+hr_url;
+                  hrModel.hrDataUpdate(token, hr_url, paramData,new HRDetailArrayInterface() {
+                      @Override
+                      public void hrDetailData(ArrayList<HRDetailsModel> hrDetailModels) {
+                      }
+                      @Override
+                      public void isDataUpdated(String status) {
+                          prog.dismissProgress();
+                          Log.i(TAG, "data updated..."+status);
+                          setVisibility(false);
+                          mCancel.setVisibility(View.INVISIBLE);
+                          mSave.setVisibility(View.INVISIBLE);
+                      }
+
+                      @Override
+                      public void closeDilog() {
+                          prog.dismissProgress();
+                      }
+                  });
+
+                  break;
+              case R.id.cancel_hr_details:
+                  setVisibility(false);
+                  mCancel.setVisibility(View.INVISIBLE);
+                  mSave.setVisibility(View.INVISIBLE);
+                  break;
+
               default:
+
                   break;
 
 
           }
+      }
+      else if(v.getId()==R.id.hr_edit){
+
+          setVisibility(true);
+          isEditable=true;
+
+          mSave.setVisibility(View.VISIBLE);
+          mCancel.setVisibility(View.VISIBLE);
+
       }
     }
 }

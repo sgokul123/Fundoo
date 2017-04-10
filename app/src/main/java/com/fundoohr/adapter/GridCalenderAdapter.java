@@ -65,7 +65,7 @@ public class GridCalenderAdapter extends BaseAdapter {
         this.list = new ArrayList<String>();
         // Print Month
         size=attendenceModels.size();
-        printMonth(mMonth, mYear);
+     printMonth(mMonth, mYear);
     }
 
     public void printMonth(int mm, int yy) {

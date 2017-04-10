@@ -148,25 +148,6 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Filter filter = adapter2.getFilter();
                 filter.filter(charSequence);
-
-
-
-               /* if(charSequence.length()==0){
-                    adapter2.getFilter().filter(charSequence);
-                    //when search field is empty display full list
-                    arr.clear();
-                    for(String name: arrCopy){
-                        arr.add(name);
-                    }
-                    //When arr list is updated call notifyDataSetChanged to update listview
-                    adapter2.notifyDataSetChanged();
-                }else{
-                   *//* filterArrayList(charSequence.toString());*//*
-                    //When arr list is updated call notifyDataSetChanged to update listview
-                    adapter2.notifyDataSetChanged();
-                }*/
-
-
             }
 
             @Override
@@ -187,7 +168,6 @@ public class EngineerFragment extends Fragment implements EnggViewModelInterface
         Filter filter = adapter2.getFilter();
         filter.filter(String.valueOf(c));
     }
-
     @Override
     public void closeDialog() {
         mDailog.dismiss();
